@@ -1,0 +1,10 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.selection-container {
+  width: 750px;
+}

@@ -1,0 +1,8 @@
+# Dependency Directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# API keys
+config.js
