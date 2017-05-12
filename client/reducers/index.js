@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import conditionReducer from './reducer_condition.js';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  condition: conditionReducer
 });
 
 export default rootReducer;

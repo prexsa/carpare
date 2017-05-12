@@ -1,8 +1,9 @@
 const express = require('express');
-
+var bodyParser = require('body-parser');
 const app = express();
 
 app.set('port', (process.env.PORT || 8080));
+app.use(bodyParser.json({ type: '*/*'}));
 
 require('./routes/routes.js')(app, express);
 
