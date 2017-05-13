@@ -18,4 +18,19 @@ module.exports = (app, express) => {
         res.send(resp.data.makes);
       })
   });
+
+  app.post('/modelDetails', (req, res) => {
+    const modelSelected = req.body.modelMakeYear;
+    const make = modelSelected.makeNiceName;
+    const model = modelSelected.modelNiceName;
+    const condition = modelSelected.condition;
+    const year = modelSelected.year;
+    const getStyleIdUrl = `https://api.edmunds.com/api/vehicle/v2/${make}/${model}?state=${condition}&year=${year}&view=basic&fmt=json&api_key=${API_KEY}`;
+
+    axios.get(getStyleIdUrl)
+      .then(resp => {
+        //console.log('routes: ', resp.data)
+        res.send(resp.data);
+      })   
+  })
 }
