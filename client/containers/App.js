@@ -5,6 +5,7 @@ import { fetchCondition, fetchCar } from '../actions/index.js';
 import { ButtonToolbar, DropdownButton, FormGroup, MenuItem, Radio } from 'react-bootstrap';
 import DropDownList from '../components/dropdownlist.js';
 import SubModelBody from '../containers/subModelBody.js';
+import EngineSpecs from '../containers/engineSpecs.js';
 
 
 class App extends Component {
@@ -125,6 +126,7 @@ class App extends Component {
           <SubModelBody />
         </div>
         <div className="main-container"></div>
+        <EngineSpecs />
       </div>
     )
   }

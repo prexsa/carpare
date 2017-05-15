@@ -33,4 +33,20 @@ module.exports = (app, express) => {
         res.send(resp.data);
       })   
   })
+
+  app.post('/equipment', (req, res) => {
+    // console.log('req: ', req.body);
+    const styleId = req.body.styleId;
+    // `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/engines?availability=standard&fmt=json&api_key=${API_KEY}`;
+
+    const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
+
+
+
+    axios.get(getSpecUrl)
+      .then(resp => {
+        // console.log('resp.data: ', resp.data)
+        res.send(resp.data);
+      })
+  })
 }
