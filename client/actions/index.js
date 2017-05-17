@@ -10,6 +10,7 @@ export function fetchCondition(condition) {
   return function(dispatch) {
     axios.post('/condition', { condition })
       .then(resp => {
+        // console.log('resp: ', resp.data)
         dispatch({
           type: FETCH_CONDITIONS,
           payload: resp.data
@@ -22,18 +23,18 @@ export function fetchCondition(condition) {
 }
 
 export function fetchCar(state, year) {
-  //console.log('fetchCar ', state)
+  // console.log('fetchCar ', state)
   const modelMakeYear = {
     condition: state.condition,
     makeNiceName: state.makeNiceName,
     modelNiceName: state.modelNiceName,
     year: year
   }
-
+// console.log('modelMakeYear', modelMakeYear)
   return function(dispatch) {
     axios.post('/modelDetails', { modelMakeYear })
       .then(resp => {
-        //console.log('/modelDetails: ', resp.data)
+        // console.log('/modelDetails: ', resp.data)
         dispatch({
           type: FETCH_CAR,
           payload: resp.data
@@ -50,7 +51,7 @@ export function fetchEquipment(styleId) {
   return function(dispatch) {
     axios.post('/equipment', { styleId })
       .then(resp => {
-        // console.log('/equipment', resp.data.equipment)
+         //console.log('/equipment', resp.data.equipment)
         dispatch({
           type: FETCH_EQUIPMENT,
           payload: resp.data

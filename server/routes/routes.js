@@ -15,6 +15,10 @@ module.exports = (app, express) => {
     axios.get(url)
       .then(resp => {
         //console.log('routes: ', resp.data.makes);
+        const allMakes = {
+          makes: resp.data.makes,
+          condition: condition
+        }
         res.send(resp.data.makes);
       })
   });

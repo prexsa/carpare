@@ -5,7 +5,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { fetchEquipment } from '../actions/index.js';
 
 
-class SubModelBody extends Component {
+class ModelStyles extends Component {
 
   renderSubmodel(submodels) {
     if(submodels === undefined ) return;
@@ -48,4 +48,4 @@ const mapStateToProps = ({ submodel }) => {
   return { submodel }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubModelBody);
+export default connect(mapStateToProps, mapDispatchToProps)(ModelStyles);

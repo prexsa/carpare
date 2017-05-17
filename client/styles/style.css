@@ -8,3 +8,15 @@ body {
 .selection-container {
   width: 750px;
 }
+
+.specs-list {
+  text-align: left;
+}
+
+.specs-list li {
+  list-style: none;
+}
+
+.spec-value {
+  text-align: right;
+}
