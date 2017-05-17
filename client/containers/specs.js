@@ -4,6 +4,7 @@ import {  Col, Thumbnail, MenuItem } from 'react-bootstrap';
 
 class EquipmentSpecs extends Component {
   renderSpecs(eqmtDetails) {
+    console.log('eqmtDetails: ', eqmtDetails)
     if(eqmtDetails.equipment === undefined) { return; }
     //console.log('equipment: ', eqmtDetails.equipment);
     const equipments = eqmtDetails.equipment;
@@ -96,7 +97,8 @@ class EquipmentSpecs extends Component {
     return (
       <div>
         {
-          equipment[0] === undefined ? <div></div> : this.renderSpecs(equipment[0])
+          // equipment[0] === undefined ? <div></div> : this.renderSpecs(equipment[0])
+          equipment[0] === undefined ? <div></div> : equipment.map(this.renderSpecs)
         }
       </div>
     )

@@ -15,10 +15,6 @@ module.exports = (app, express) => {
     axios.get(url)
       .then(resp => {
         //console.log('routes: ', resp.data.makes);
-        const allMakes = {
-          makes: resp.data.makes,
-          condition: condition
-        }
         res.send(resp.data.makes);
       })
   });
@@ -34,6 +30,7 @@ module.exports = (app, express) => {
     axios.get(getStyleIdUrl)
       .then(resp => {
         //console.log('routes: ', resp.data)
+
         res.send(resp.data);
       })   
   })
