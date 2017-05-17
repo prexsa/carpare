@@ -4,7 +4,7 @@ import {  Col, Thumbnail, MenuItem } from 'react-bootstrap';
 
 class EquipmentSpecs extends Component {
   renderSpecs(eqmtDetails) {
-    console.log('eqmtDetails: ', eqmtDetails)
+    //console.log('eqmtDetails: ', eqmtDetails)
     if(eqmtDetails.equipment === undefined) { return; }
     //console.log('equipment: ', eqmtDetails.equipment);
     const equipments = eqmtDetails.equipment;
@@ -93,7 +93,8 @@ class EquipmentSpecs extends Component {
   }
 
   render() {
-    const { equipment } = this.props;
+    const { equipment, submodel } = this.props;
+    
     return (
       <div>
         {
@@ -105,8 +106,8 @@ class EquipmentSpecs extends Component {
   }
 }
 
-const mapStateToProps = ({ equipment }) => {
-  return { equipment };
+const mapStateToProps = ({ equipment, submodel }) => {
+  return { equipment, submodel };
 }
 
 export default connect(mapStateToProps)(EquipmentSpecs);
