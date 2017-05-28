@@ -30,7 +30,15 @@ module.exports = (app, express) => {
     axios.get(getStyleIdUrl)
       .then(resp => {
         //console.log('routes: ', resp.data)
-
+        const modelDetails = {
+          modelSelected : req.body.modelMakeYear,
+          make : modelSelected.makeNiceName,
+          model : modelSelected.modelNiceName,
+          condition : modelSelected.condition,
+          year : modelSelected.year,
+          data: data
+        }
+        console.log('modelDetails: ', modelDetails)
         res.send(resp.data);
       })   
   })
