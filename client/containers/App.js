@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DropDownList from '../components/dropdownlist.js';
 import ModelStyles from '../containers/ModelStyles.js';
 import Specs from '../containers/specs.js';
+import ModelLists from '../containers/ModelLists.js';
 
 class App extends Component {
 
@@ -19,6 +20,8 @@ class App extends Component {
         </div>
         <div className="main-container"></div>
           <Specs />
+          <hr />
+          <ModelLists />
       </div>
     )
   }

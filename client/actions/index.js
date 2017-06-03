@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const FETCH_CONDITIONS = 'fetch_conditions';
 export const FETCH_CAR = 'fetch_car';
-export const FETCH_STYLEID = 'fetch_styleId';
+export const FETCH_SPECS = 'fetch_specs';
 export const FETCH_EQUIPMENT = 'fetch_equipment';
 
 export function fetchCondition(condition) {
@@ -23,7 +23,6 @@ export function fetchCondition(condition) {
 }
 
 export function fetchCar(state, year) {
-  // console.log('fetchCar ', state)
   const modelMakeYear = {
     condition: state.condition,
     makeNiceName: state.makeNiceName,
@@ -34,31 +33,48 @@ export function fetchCar(state, year) {
   return function(dispatch) {
     axios.post('/modelDetails', { modelMakeYear })
       .then(resp => {
-        // console.log('/modelDetails: ', resp.data)
+       //  console.log('/modelDetails: ', resp.data)
         dispatch({
           type: FETCH_CAR,
           payload: resp.data
         })
       })
       .catch(err => {
-        console.log('fetch car error: ', err);
+        console.log('fetch model details error: ', err);
+      })
+  }
+}
+
+export function fetchSpecs(styleId) {
+  // console.log('actions: ', styleId)
+  return function(dispatch) {
+    axios.post('/styleDetails', { styleId })
+      .then(resp => {
+         //console.log('/specs', resp.data)
+        dispatch({
+          type: FETCH_SPECS,
+          payload: resp.data
+        })
+      })
+      .catch(err => {
+        console.log('fetch style details error: ', err);
       })
   }
 }
 
 export function fetchEquipment(styleId) {
-  // console.log('actions: ', styleId)
+  //console.log('actions: ', styleId)
   return function(dispatch) {
-    axios.post('/equipment', { styleId })
+    axios.post('/equipmentDetails', { styleId })
       .then(resp => {
-         //console.log('/equipment', resp.data.equipment)
+         // console.log('/equipment', resp.data.equipment)
         dispatch({
           type: FETCH_EQUIPMENT,
           payload: resp.data
         })
       })
       .catch(err => {
-        console.log('fetch equipment error: ', err);
+        console.log('fetch style details error: ', err);
       })
   }
 }

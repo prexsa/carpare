@@ -30,27 +30,17 @@ module.exports = (app, express) => {
     axios.get(getStyleIdUrl)
       .then(resp => {
         //console.log('routes: ', resp.data)
-        const modelDetails = {
-          modelSelected : req.body.modelMakeYear,
-          make : modelSelected.makeNiceName,
-          model : modelSelected.modelNiceName,
-          condition : modelSelected.condition,
-          year : modelSelected.year,
-          data: data
-        }
-        console.log('modelDetails: ', modelDetails)
         res.send(resp.data);
       })   
   })
 
-  app.post('/equipment', (req, res) => {
-    // console.log('req: ', req.body);
+  app.post('/styleDetails', (req, res) => {
+    //console.log('req:styleDetails ', req.body);
     const styleId = req.body.styleId;
     // `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/engines?availability=standard&fmt=json&api_key=${API_KEY}`;
 
-    const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
-
-
+    // const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
+    const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}?view=full&fmt=json&api_key=${API_KEY}`;
 
     axios.get(getSpecUrl)
       .then(resp => {
@@ -58,4 +48,17 @@ module.exports = (app, express) => {
         res.send(resp.data);
       })
   })
+
+  app.post('/equipmentDetails', (req, res) => {
+    const styleId = req.body.styleId;
+// console.log('req:equipmentDetails ', styleId)
+    const getEquipmentUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
+
+    axios.get(getEquipmentUrl)
+      .then(resp => {
+        // console.log('resp.data: ', resp.data)
+        res.send(resp.data);
+      })
+  })
+
 }

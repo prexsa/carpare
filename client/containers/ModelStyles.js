@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { fetchEquipment } from '../actions/index.js';
+import { fetchSpecs, fetchEquipment } from '../actions/index.js';
 
 
 class ModelStyles extends Component {
+  fetchAction(styleId) {
+    // console.log("style.id: ", styleId)
+    this.props.fetchSpecs(styleId);
+    this.props.fetchEquipment(styleId);
+  }
 
   renderSubmodel(submodels) {
     if(submodels === undefined ) return;
@@ -20,7 +25,7 @@ class ModelStyles extends Component {
             <MenuItem
               key={style.id}
               eventKey={style.id}
-              onSelect={() => this.props.fetchEquipment(style.id)}
+              onSelect={() => this.fetchAction(style.id)}
             >{style.name}
             </MenuItem>
           )
@@ -28,6 +33,7 @@ class ModelStyles extends Component {
       </DropdownButton>
     )
   }
+
   render() {
     const { submodel } = this.props;
     // console.log('submodel: ', submodel[0])
@@ -40,9 +46,8 @@ class ModelStyles extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchEquipment }, dispatch);
+  return bindActionCreators({ fetchSpecs, fetchEquipment }, dispatch);
 }
-
 
 const mapStateToProps = ({ submodel }) => {
   return { submodel }
