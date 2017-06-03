@@ -19,7 +19,6 @@ class App extends Component {
           <ModelStyles />
         </div>
         <div className="main-container"></div>
-          <Specs />
           <hr />
           <ModelLists />
       </div>

@@ -7,7 +7,7 @@ import EquipmentDetails from '../containers/equipmentDetails.js';
 
 class Specs extends Component {
   renderDetails(styleDetails) {
-    console.log('vehicle spec: ', styleDetails);
+    // console.log('vehicle spec: ', styleDetails);
     const styleId = styleDetails.id;
     const cityMpg = styleDetails.MPG.city;
     const hwyMpg = styleDetails.MPG.highway;
