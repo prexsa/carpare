@@ -8,9 +8,6 @@ const modelDetails = ({ detail }) => {
   // console.log('equipment: ', equipmentArray)
 
     const styleId = specs.id;
-    const cityMpg = specs.MPG.city;
-    const hwyMpg = specs.MPG.highway;
-    const avgMpg = (parseInt(cityMpg) + parseInt(hwyMpg)) / 2;
     const name = specs.name;
     const make = specs.make.name;
     const modelName = specs.model.name;
@@ -55,21 +52,26 @@ const modelDetails = ({ detail }) => {
     let extDimensions = eqpmntStorage.Exterior_Dimensions;
     let specifications = eqpmntStorage.Specifications;
     // filter for for hwy, city, combined, curb weight, 0-60, fuel-capacity,
+    // console.log('specifications: ', specifications)
     specifications.filter((specName, i) => {
       const specNameArray = specName.name.split(' ');
       if( specNameArray[0] === 'Curb' ||
           specNameArray[0] === 'Turning' ||
           specNameArray[0] === 'Fuel' ||
-          specNameArray[0] === 'Manufacturer_0_60mph'
+          specNameArray[0] === 'Manufacturer' ||
+          specNameArray[0] === 'Epa'
         )
       {
         //specStorage.push(specName);
-        if(specNameArray[0] === 'Manufacturer') { specName.name = 'Manufacturer_0_60mph'; }
+        if(specNameArray[0] === 'Manufacturer') { 
+          //specName.name = 'Manufacturer_0_60mph'; 
+          specStorage['Manufacturer_0_60mph'] = specName.value;
+        }
         specStorage[specName.name.split(' ').join("_")] = specName.value
       }
     });
-
-// console.log('specifications: ', specifications)
+/*
+console.log('extDimensions: ', extDimensions)
     extDimensions = extDimensions.map(ext => {
       return (
         <MenuItem 
@@ -77,11 +79,14 @@ const modelDetails = ({ detail }) => {
           eventKey={ext.name}>{ext.name}: <span className="spec-value">{ext.value}"</span></MenuItem>
       )
     });
-
+    */
 // console.log('specStorage: ', specStorage)
     const curbWeight = specStorage.Curb_Weight;
     const fuelCapacity = specStorage.Fuel_Capacity;
     const zeroToSixty = specStorage.Manufacturer_0_60mph;
+    const cityMpg = specStorage.Epa_City_Mpg || 'n/a';
+    const hwyMpg = specStorage.Epa_Highway_Mpg || 'n/a';
+    const combinedMpg = specStorage.Epa_Combined_Mpg;
 
   return (
     <div>
@@ -90,7 +95,7 @@ const modelDetails = ({ detail }) => {
           <ul className="specs-list">
             <MenuItem header>{title}</MenuItem>
             <MenuItem>{name}</MenuItem>
-            <MenuItem>City {cityMpg}/ Hwy {hwyMpg}/ Avg {avgMpg}</MenuItem>
+            <MenuItem>City {cityMpg}/ Hwy {hwyMpg}/ Avg {combinedMpg}</MenuItem>
             <MenuItem header>Performance</MenuItem>
             <MenuItem>0 - 60: {zeroToSixty} (seconds)</MenuItem>
             <MenuItem>Horsepower: {hrspwr}{hrspwrRpm}</MenuItem>
@@ -98,8 +103,6 @@ const modelDetails = ({ detail }) => {
             <MenuItem>Curb Weight: {curbWeight} lbs</MenuItem>
             <MenuItem>{fuelType}</MenuItem>
             <MenuItem>{drivenWheels}</MenuItem>
-            <MenuItem header>Exterior Dimensions</MenuItem>
-            {extDimensions}
             <MenuItem header>Cost</MenuItem>
             <MenuItem>Base MSRP: ${numberWithCommas(msrpPrice)}</MenuItem>
           </ul>
