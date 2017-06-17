@@ -1,6 +1,14 @@
 const path = require('path');
 const axios = require('axios');
 const config = require('../../config.js');
+const fs = require('fs');
+//const cars = require('../classifications/cars.js');
+//const electricHybrids = require('../classifications/electricHybrids.js');
+//const factoryTuner = require('../classifications/factory-tuner.js');
+//const luxury = require('../classifications/luxury.js');
+// const suvs = require('../classifications/suvs.js');
+//const suvArray = require('../classifications/suvs.js');
+//const trucks = require('../classifications/trucks.js');
 
 const API_KEY = config.edmunds;
 
@@ -25,6 +33,8 @@ module.exports = (app, express) => {
     const model = modelSelected.modelNiceName;
     const condition = modelSelected.condition;
     const year = modelSelected.year;
+
+
     const getStyleIdUrl = `https://api.edmunds.com/api/vehicle/v2/${make}/${model}?state=${condition}&year=${year}&view=basic&fmt=json&api_key=${API_KEY}`;
 
     axios.get(getStyleIdUrl)
@@ -61,4 +71,155 @@ module.exports = (app, express) => {
       })
   })
 
+  app.post('/suggestions', (req, res) => {
+    console.log('/suggestions: ', req.body.vehicleClass);
+    const vehicleClass = req.body.vehicleClass
+    const type = vehicleClass.category.vehicleType.toLowerCase();
+    const size = vehicleClass.category.vehicleSize.toLowerCase();
+
+    let market = [];
+    market = vehicleClass.category.market.toLowerCase().split(',');
+    console.log('market : ', market);
+
+    const carObj = {
+      make: vehicleClass.make.niceName,
+      model: vehicleClass.model.niceName,
+      submodel: vehicleClass.submodel.niceName
+    }
+    // check vehicleType: car, suv, trucks, van
+    // check vehicleSize: compact, midsize, large
+    // check market, etc... crossover, factory-tuner, luxury, performance
+      fs.readFile('../carpare/server/classifications/suvs.json', 'utf8', (err, data) => {
+        if(err) throw err;
+
+        const obj = JSON.parse(data);
+        console.log('read file data: ', obj);
+
+
+        // if vehicle size does not exist
+        if(!([size] in obj)) {
+          // add vehicleSize to json
+          obj[size] = {};
+          //console.log('obj: ', obj);
+          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
+            if(err) { console.error(err); return; }
+            console.log("Vehicle size has been added");
+          })
+        }
+      })
+
+      fs.readFile('../carpare/server/classifications/suvs.json', 'utf8', (err, data) => {
+        if(err) throw err;
+
+        const obj = JSON.parse(data);
+        //console.log('read file data 2: ', data);
+
+        const carSize = obj[size];
+
+        if(!( [market[0]] in carSize)) {
+          carSize[ market[0] ] = [];
+          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
+            if(err) { console.error(err); return; }
+            console.log("Vehicle market has been added");
+          })
+        }
+      })
+
+      fs.readFile('../carpare/server/classifications/suvs.json', 'utf8', (err, data) => {
+        if(err) throw err;
+
+        const obj = JSON.parse(data);
+        console.log('read file data 3: ', data);
+
+        const carMarket = obj[size][market[0]];
+
+        console.log('carMarket: ', carMarket);
+        if(carMarket.length < 0) {
+          carMarket.push(carObj);
+          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
+            if(err) { console.error(err); return; }
+            console.log("Vehicle has been added");
+          })
+
+        }else{
+          const submodelArray = [];
+          carMarket.map(car => {
+            submodelArray.push(car.submodel);
+          })
+
+          if(submodelArray.indexOf(carObj.submodel) < 0 ) {
+            console.log('submodelArray: ', submodelArray);
+          }else{           
+            if(submodelArray.length <= 1) {
+              console.log('There are no suggestions.');
+            }
+
+            
+
+          }
+
+
+
+        }
+      })
+
+  })
 }
+
+    // http://gyandeeps.com/json-file-write/
+    // https://evdokimovm.github.io/javascript/nodejs/2016/11/11/write-data-to-local-json-file-using-nodejs.html
+/*
+        let differentMarket; 
+        // console.log('market: ', market[0])
+        // console.log('obj[size]: ', obj[size])
+        if(size && obj[size][market[0]]){
+          // console.log('1', obj[size][market[0]])
+          differentMarket = obj[size][market[0]];
+        } else {
+          // create a size
+          // console.log('2')
+          obj[size] = { [market[0]]: [] };
+          differentMarket = obj[size][market[0]];
+        console.log('differentMarket 1: ', differentMarket)
+        console.log('obj1: ', obj)
+          differentMarket.push(carObj);
+        console.log('differentMarket 2: ', differentMarket)
+          console.log('obj2: ', obj)
+          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
+            if(err) { console.error(err); return; }
+            console.log("File has been created");
+          })
+        }
+
+        differentMarket;
+
+        // returns a single car object
+        // of shared market class for suggestions
+        let respond;
+        if(differentMarket.length > 0) {
+          const arrayLength = differentMarket.length + 1;
+          const randomize = Math.floor((differentMarket.length + 1) * Math.random());
+          const selectedVehicle = differentMarket[randomize];
+
+          if(carObj === selectedVehicle) {
+            if(arrayLength >= randomize) {
+              respond = differentMarket[randomize - 1];
+            }else{
+              respond = differentMarket[randomize + 1];
+            }
+          }
+        } else {
+          differentMarket.push(carObj);
+          respond = "No suggestions available"
+        }
+
+        respond;
+
+
+        res.send(respond);
+        
+        fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(carObj, null, 4), (err) => {
+          if(err) { console.error(err); return; }
+          console.log("File has been created");
+        })
+*/

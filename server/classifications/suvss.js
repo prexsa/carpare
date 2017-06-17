@@ -1,4 +1,5 @@
-export default suvs = {
+const suvs = module.exports = 
+    {
         subCompactCrossOver: {
             chevy: 'trax',
             honda: 'hrv',

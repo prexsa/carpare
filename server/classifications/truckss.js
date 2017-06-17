@@ -1,6 +1,6 @@
 // http://www.vehiclecharts.com/types-of-cars.html
-
-export default trucks = {
+const trucks = module.exports = 
+{
     midSize: {
         chevy: 'colorado',
         gmc: 'canyon',

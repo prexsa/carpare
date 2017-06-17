@@ -1,9 +1,10 @@
-export default luxury = {
+const luxury = module.exports =  
+    {
         compact: {
             acura: 'ilx',
             audi: 'a4',
-            bmw: '2'
-            bmw: '3'
+            bmw: '2',
+            bmw: '3',
             bmw: '4',
             buick: 'verano',
             cadillac: 'ats',

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchSuggestions } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
+import Suggestions from '../containers/Suggestions.js';
+
 
 class ModelLists extends Component {
   render () {
@@ -20,7 +24,21 @@ class ModelLists extends Component {
 
     merge.reverse();
 
-    //console.log('merge: ', merge)
+    //console.log('merge: ', merge);
+    if(merge.length > 0) {
+
+      const vehicleType = {
+        category: merge[0][0].categories,
+        make: merge[0][0].make,
+        model: merge[0][0].model,
+        submodel: merge[0][0].submodel
+      }
+      
+      this.props.fetchSuggestions(vehicleType);
+    }
+
+    //console.log('market: ', market)
+
 
     return (
       <div>
@@ -30,13 +48,18 @@ class ModelLists extends Component {
           return <ModelDetails key={id} detail={details} />
         })
       }
+      <Suggestions />
       </div>
     )
   }
+}
+
+const mapDispatchToProps = ( dispatch ) => {
+  return bindActionCreators({ fetchSuggestions }, dispatch);
 }
 
 const mapStateToProps = ({ specs, equipments }) => {
   return { specs, equipments }
 }
 
-export default connect(mapStateToProps)(ModelLists);
+export default connect(mapStateToProps, mapDispatchToProps)(ModelLists);

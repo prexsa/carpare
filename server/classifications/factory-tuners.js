@@ -1,4 +1,5 @@
-export default factoryTuner = {
+const factoryTuner = module.exports = 
+  {
     cars: {
       audi: 'r8',
       audi: 'tt',
@@ -11,7 +12,7 @@ export default factoryTuner = {
       dodge: 'viper',
       ford: 'mustang',
       mazda: 'miata',
-      mercedes: 'amg'
+      mercedes: 'amg',
       nissan: 'gtr',
       nissan: 'z',
       porsche: '911'

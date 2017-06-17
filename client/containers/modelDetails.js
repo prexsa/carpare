@@ -60,7 +60,8 @@ const modelDetails = ({ detail }) => {
           specNameArray[0] === 'Turning' ||
           specNameArray[0] === 'Fuel' ||
           specNameArray[0] === 'Manufacturer' ||
-          specNameArray[0] === 'Epa'
+          specNameArray[0] === 'Epa' ||
+          specNameArray[0] === 'Ege'
         )
       {
         //specStorage.push(specName);
@@ -85,9 +86,9 @@ console.log('extDimensions: ', extDimensions)
     const curbWeight = specStorage.Curb_Weight || specStorage.Tco_Curb_Weight;
     const fuelCapacity = specStorage.Fuel_Capacity;
     const zeroToSixty = specStorage.Manufacturer_0_60mph + " (seconds)" || 'n/a';
-    const cityMpg = specStorage.Epa_City_Mpg || specStorage.Epa_City_Mpge || 'n/a';
-    const hwyMpg = specStorage.Epa_Highway_Mpg || specStorage.Epa_Highway_Mpge || 'n/a';
-    const combinedMpg = specStorage.Epa_Combined_Mpg || specStorage.Epa_Combined_Mpge;
+    const cityMpg = specStorage.Epa_City_Mpg || specStorage.Epa_City_Mpge ||  specStorage.Ege_City_Mpg || 'n/a';
+    const hwyMpg = specStorage.Epa_Highway_Mpg || specStorage.Epa_Highway_Mpge || specStorage.Ege_Highway_Mpg || 'n/a';
+    const combinedMpg = specStorage.Epa_Combined_Mpg || specStorage.Epa_Combined_Mpge || specStorage.Ege_Combined_Mpg || 'n/a';
 
   return (
     <div>

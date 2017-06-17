@@ -1,0 +1,12 @@
+{
+    "compact": {},
+    "midsize": {
+        "": [],
+        "crossover": [],
+        "factory tuner": []
+    },
+    "large": {
+        "crossover": [],
+        "factory tuner": []
+    }
+}

@@ -1,4 +1,5 @@
-export default electricHybrids = {
+const electricHybrids = module.exports =  
+    {
         'mini': {
             bmw: 'i3',
             chevy: 'spark',

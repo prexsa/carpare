@@ -1,4 +1,4 @@
-export default cars = 
+const cars = module.exports =  
       {
       subCompact: {
         chevy: 'sonic',

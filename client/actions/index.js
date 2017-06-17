@@ -4,6 +4,7 @@ export const FETCH_CONDITIONS = 'fetch_conditions';
 export const FETCH_CAR = 'fetch_car';
 export const FETCH_SPECS = 'fetch_specs';
 export const FETCH_EQUIPMENT = 'fetch_equipment';
+export const FETCH_SUGGESTIONS = 'fetch_suggestions';
 
 export function fetchCondition(condition) {
   // console.log('fetchCondition: ', condition)
@@ -63,7 +64,7 @@ export function fetchSpecs(styleId) {
 }
 
 export function fetchEquipment(styleId) {
-  //console.log('actions: ', styleId)
+  // console.log('actions: ', styleId)
   return function(dispatch) {
     axios.post('/equipmentDetails', { styleId })
       .then(resp => {
@@ -75,6 +76,22 @@ export function fetchEquipment(styleId) {
       })
       .catch(err => {
         console.log('fetch style details error: ', err);
+      })
+  }
+}
+
+export function fetchSuggestions(vehicleClass) {
+  //console.log('market: ', market)
+  return function(dispatch) {
+    axios.post('/suggestions', { vehicleClass })
+      .then(resp => {
+        dispatch({
+          type: FETCH_SUGGESTIONS,
+          payload: resp.data
+        })
+      })
+      .catch(err => {
+        console.log('fetch suggestions error: ', err);
       })
   }
 }
