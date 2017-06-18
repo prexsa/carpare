@@ -77,7 +77,7 @@ module.exports = (app, express) => {
     const type = vehicleClass.category.vehicleType.toLowerCase();
     const size = vehicleClass.category.vehicleSize.toLowerCase();
 
-    let market = [];
+    var market = [];
     market = vehicleClass.category.market.toLowerCase().split(',');
     console.log('market : ', market);
 
