@@ -24,7 +24,7 @@ class ModelLists extends Component {
 
     merge.reverse();
 
-    //console.log('merge: ', merge);
+    console.log('merge: ', merge);
     if(merge.length > 0) {
 
       const vehicleType = {

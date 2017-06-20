@@ -1,3 +1,16 @@
 {
-  
+  "large": {
+    "factory tuner": [
+      {
+        "make": "bmw",
+        "model": "m6-gran-coupe",
+        "submodel": "sedan"
+      },
+      {
+        "make": "bmw",
+        "model": "m5",
+        "submodel": "sedan"
+      }
+    ]
+  }
 }

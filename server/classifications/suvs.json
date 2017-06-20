@@ -1,0 +1,20 @@
+{
+  "midsize": {
+    "crossover": [
+      {
+        "make": "bmw",
+        "model": "x5-m",
+        "submodel": "suv"
+      }
+    ]
+  },
+  "large": {
+    "crossover": [
+      {
+        "make": "mercedes-benz",
+        "model": "gl-class",
+        "submodel": "gl-63-amg"
+      }
+    ]
+  }
+}

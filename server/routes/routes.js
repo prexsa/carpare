@@ -73,11 +73,12 @@ module.exports = (app, express) => {
 
   app.post('/suggestions', (req, res) => {
     console.log('/suggestions: ', req.body.vehicleClass);
+    let respond;
     const vehicleClass = req.body.vehicleClass
-    const type = vehicleClass.category.vehicleType.toLowerCase();
+    const type = vehicleClass.category.vehicleType.toLowerCase() + 's';
     const size = vehicleClass.category.vehicleSize.toLowerCase();
 
-    var market = [];
+    let market = [];
     market = vehicleClass.category.market.toLowerCase().split(',');
     console.log('market : ', market);
 
@@ -86,83 +87,69 @@ module.exports = (app, express) => {
       model: vehicleClass.model.niceName,
       submodel: vehicleClass.submodel.niceName
     }
+
+    console.log('carObj: ', carObj)
     // check vehicleType: car, suv, trucks, van
     // check vehicleSize: compact, midsize, large
     // check market, etc... crossover, factory-tuner, luxury, performance
-      fs.readFile('../carpare/server/classifications/suvs.json', 'utf8', (err, data) => {
+    const jsonPath = `../carpare/server/classifications/${type}.json`;
+    console.log('jsonPath: ', jsonPath)
+      fs.readFile(jsonPath, 'utf8', (err, data) => {
         if(err) throw err;
 
         const obj = JSON.parse(data);
         console.log('read file data: ', obj);
 
-
         // if vehicle size does not exist
         if(!([size] in obj)) {
-          // add vehicleSize to json
-          obj[size] = {};
-          //console.log('obj: ', obj);
-          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
-            if(err) { console.error(err); return; }
-            console.log("Vehicle size has been added");
-          })
+          obj[size] = { [market[0]] : [ carObj ] };
+          writeToJSON(obj, type);
+          // set respond to a str for no suggestions
+          respond = carObj;
         }
-      })
 
-      fs.readFile('../carpare/server/classifications/suvs.json', 'utf8', (err, data) => {
-        if(err) throw err;
-
-        const obj = JSON.parse(data);
-        //console.log('read file data 2: ', data);
-
-        const carSize = obj[size];
-
-        if(!( [market[0]] in carSize)) {
-          carSize[ market[0] ] = [];
-          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
-            if(err) { console.error(err); return; }
-            console.log("Vehicle market has been added");
-          })
+        // if market does not exist
+        if(!([market[0]] in obj[size])) {
+          obj[size][market[0]] = [ carObj ];
+          writeToJSON(obj, type);
+          // set respond to a str for no suggestions
+          respond = carObj;
         }
-      })
 
-      fs.readFile('../carpare/server/classifications/suvs.json', 'utf8', (err, data) => {
-        if(err) throw err;
-
-        const obj = JSON.parse(data);
-        console.log('read file data 3: ', data);
-
-        const carMarket = obj[size][market[0]];
-
-        console.log('carMarket: ', carMarket);
-        if(carMarket.length < 0) {
-          carMarket.push(carObj);
-          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
-            if(err) { console.error(err); return; }
-            console.log("Vehicle has been added");
-          })
-
-        }else{
-          const submodelArray = [];
-          carMarket.map(car => {
-            submodelArray.push(car.submodel);
-          })
-
-          if(submodelArray.indexOf(carObj.submodel) < 0 ) {
-            console.log('submodelArray: ', submodelArray);
-          }else{           
-            if(submodelArray.length <= 1) {
-              console.log('There are no suggestions.');
-            }
-
-            
-
+        let marketArray = obj[size][market[0]];
+        console.log('marketArray: ', marketArray)
+        // car is not part of market array
+        let found = false;
+        marketArray.forEach(car => {
+          if(car.make === carObj.make && car.model === carObj.model && car.submodel === carObj.submodel) {
+            found = true;
           }
+        })
 
-
-
+        if(!found) {
+          marketArray.push(carObj);
+          writeToJSON(obj, type);
         }
-      })
 
+        const randomize = Math.floor((marketArray.length) * Math.random());
+        console.log('randomize: ', randomize)
+        const selectedCar = marketArray[randomize];
+        console.log('selectedCar: ', selectedCar)
+        if(selectedCar.make === carObj.make && selectedCar.model === carObj.model && selectedCar.submodel === carObj.submodel) {
+          marketArray[randomize];
+        }
+
+        respond = marketArray[randomize];
+        res.send(respond);
+
+      })
+  })
+}
+
+const writeToJSON = (jsonObj, type) => {
+  fs.writeFile(`../carpare/server/classifications/${type}.json`, JSON.stringify(jsonObj, null, 2), (err) => {
+    if(err) { console.error(err); return; }
+    console.log("Created!");
   })
 }
 
