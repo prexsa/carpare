@@ -5,6 +5,11 @@
         "make": "bmw",
         "model": "x5-m",
         "submodel": "suv"
+      },
+      {
+        "make": "bmw",
+        "model": "x6-m",
+        "submodel": "suv"
       }
     ]
   },

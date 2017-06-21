@@ -2,11 +2,32 @@ body {
   font-family: 'Roboto', sans-serif;
   width: 1000px;
   margin: 0 auto;
-  text-align: center;
+}
+
+.header {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.condition-container {
+  width: 160px;
+  margin: 0 auto;
 }
 
 .selection-container {
+  list-style-type: none;
+  text-align: left;
+  margin: 0 auto;
   width: 750px;
+}
+
+.selection-container li {
+  margin: 0 5px;
+}
+
+.submodel-dropdown {
+  width: 200px;
+  margin: 0 auto;
 }
 
 .specs-list {

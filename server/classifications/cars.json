@@ -10,6 +10,32 @@
         "make": "bmw",
         "model": "m5",
         "submodel": "sedan"
+      },
+      {
+        "make": "bmw",
+        "model": "alpina-b7",
+        "submodel": "sedan"
+      },
+      {
+        "make": "bmw",
+        "model": "alpina-b6-gran-coupe",
+        "submodel": "sedan"
+      }
+    ]
+  },
+  "midsize": {
+    "factory tuner": [
+      {
+        "make": "bmw",
+        "model": "m4",
+        "submodel": "coupe"
+      }
+    ],
+    "exotic": [
+      {
+        "make": "bentley",
+        "model": "continental",
+        "submodel": "supersports"
       }
     ]
   }

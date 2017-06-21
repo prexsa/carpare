@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+//import { DropdownButton, MenuItem } from 'react-bootstrap';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { fetchSpecs, fetchEquipment } from '../actions/index.js';
 
 
 class ModelStyles extends Component {
-  fetchAction(styleId) {
-    // console.log("style.id: ", styleId)
+  constructor(props) {
+    super(props);
+
+    this.state = { submodelValue: ''}
+  }
+
+  fetchAction(styleId, styleName) {
+    console.log("style.id: ", styleId)
+    //this.setState.submodelValue = styleName;
     this.props.fetchSpecs(styleId);
     this.props.fetchEquipment(styleId);
   }
@@ -19,18 +28,24 @@ class ModelStyles extends Component {
     const styles = submodels.years[0].styles;
     // console.log('styles: ', styles)
     return(
-      <DropdownButton title="Sub-Models" id='submodels'>
+      <SelectField 
+        value={this.state.submodelValue} 
+        hintText="SubModels" 
+        hintStyle={{ left: 20 }}
+        style={{width: 200}}
+      >
         {styles.map(style => {
           return (
             <MenuItem
               key={style.id}
-              eventKey={style.id}
-              onSelect={() => this.fetchAction(style.id)}
-            >{style.name}
+              value={style.id}
+              primaryText={style.name}
+              onTouchTap={() => this.fetchAction(style.id, style.name)}
+            >
             </MenuItem>
           )
         })}
-      </DropdownButton>
+      </SelectField>
     )
   }
 
@@ -38,8 +53,15 @@ class ModelStyles extends Component {
     const { submodel } = this.props;
     // console.log('submodel: ', submodel[0])
     return (
-      <div>
-        {submodel === undefined ? <div></div> : this.renderSubmodel(submodel[0])}
+      <div className="submodel-dropdown">
+        {submodel === undefined ? <div>
+          <SelectField 
+            hintText="SubModels"
+            hintStyle={{ left: 20 }} 
+            style={{width: 200}}
+            disabled={true}
+          />
+        </div> : this.renderSubmodel(submodel[0])}
       </div>
     )
   }

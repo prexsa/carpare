@@ -2,7 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCondition, fetchCar } from '../actions/index.js';
-import { ButtonToolbar, DropdownButton, FormGroup, MenuItem, Radio } from 'react-bootstrap';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  radioButton: {
+    marginBottom: 16,
+    marginRight: 15,
+    width: 'auto'
+  },
+  radioGroup: {
+    display: 'flex',
+    marginRight: 3,
+    marginLeft: 3
+  }
+};
+
 
 class DropDownList extends Component {
   constructor(props) {
@@ -20,6 +39,9 @@ class DropDownList extends Component {
       makeNiceName: '',
       modelNiceName: '',
       yearSelected: 0,
+      makeValue: '',
+      modelValue: '',
+      yearValue: ''
     }
   }
 
@@ -38,18 +60,26 @@ class DropDownList extends Component {
     // console.log("DropDownList makes: ", allMakes)
     // const makes = allMakes;
     return (
-      <DropdownButton title='Makes' id='makes'>
-        {allMakes.map(make => {
-          //console.log('make: ', make)
-          return (
-            <MenuItem 
-              key={make.id} 
-              eventKey={make.id} 
-              onSelect={() => this.setState({ models: [make.models] , makeNiceName: make.niceName})}
-              >{make.name}
-            </MenuItem>)
-        })}
-      </DropdownButton>
+      <div>
+        <SelectField 
+          value={this.state.makeValue} 
+          hintText="Make" 
+          hintStyle={{ left: 20 }}
+          style={{width: 200}}
+          >
+          {allMakes.map(make => {
+            //console.log('make: ', make)
+            return (
+              <MenuItem 
+                key={make.id}
+                value={make.name}
+                primaryText={make.name}
+                onTouchTap={() => this.setState({ models: [make.models] , makeNiceName: make.niceName, makeValue: make.name})}
+              >
+              </MenuItem>)
+          })}
+        </SelectField>
+      </div>
     )
   }
 
@@ -57,43 +87,59 @@ class DropDownList extends Component {
     //console.log("models: ", models[0])
     if(models[0] === undefined) return;
     return (
-      <DropdownButton title="Models" id="models">
-        {
-          models[0].map(model => {
-            return (
-              <MenuItem 
-                key={model.name}
-                eventKey={model.name}
-                onSelect={() => this.setState({ years: [model.years], modelNiceName: model.niceName, modelSelected: model.name })}
-                >{model.name}
-              </MenuItem>
-            )
-          })
-        }
-      </DropdownButton>
+      <div>
+        <SelectField 
+          value={this.state.modelValue} 
+          hintText="Model"
+          hintStyle={{ left: 20 }}
+          style={{width: 200}}
+          >
+          {
+            models[0].map(model => {
+              return (
+                <MenuItem 
+                  key={model.name}
+                  value={model.name}
+                  primaryText={model.name}
+                  onTouchTap={() => this.setState({ years: [model.years], modelNiceName: model.niceName, modelSelected: model.name, modelValue: model.name })}
+                  >
+                </MenuItem>
+              )
+            })
+          }
+        </SelectField>
+      </div>
     )
   }
 
   renderYears(years) {
     if(years[0] === undefined) return;
     return (
-      <DropdownButton title="Years" id="years">
-        {
-          years[0].map(year => {
-            return (
-              <MenuItem
-                key={year.id}
-                eventKey={year.id}
-                onSelect={() => {
-                  this.setState({ yearSelected: year });
-                  this.onSelectYear(year.year);
-                }}
-              >{year.year}
-              </MenuItem>
-            )
-          })
-        }
-      </DropdownButton>
+      <div>
+        <SelectField 
+          value={this.state.yearValue} 
+          hintText="Year"
+          hintStyle={{ left: 20 }} 
+          style={{width: 200}}
+          >
+          {
+            years[0].map(year => {
+              return (
+                <MenuItem
+                  key={year.id}
+                  value={year.year}
+                  primaryText={year.year}
+                  onTouchTap={() => {
+                    this.setState({ yearSelected: year, yearValue: year.year });
+                    this.onSelectYear(year.year);
+                  }}
+                >
+                </MenuItem>
+              )
+            })
+          }
+        </SelectField>
+      </div>
     )
   }
 
@@ -101,25 +147,54 @@ class DropDownList extends Component {
     const { condition } = this.props;
     //console.log('condition: ', condition)
     const { models, years } = this.state;
-
+console.log('models: ', models, " years: ", years)
     return (
       <div>
-        Hello World, I"m DropDownList
-        <div className="selection-container">
-          <FormGroup onChange={this.handleChange}>
-            <Radio name="radioGroup" value="new" inline>
-              New
-            </Radio>
-            {' '}
-            <Radio name="radioGroup" value='used' inline>
-              Used
-            </Radio>
-          </FormGroup>
+        <div className="condition-container">
+          <RadioButtonGroup name="condition" onChange={this.handleChange} style={styles.radioGroup}>
+            <RadioButton
+              value="new"
+              label="New"
+              style={styles.radioButton}
+              iconStyle={{ marginRight: 5 }}
+            />
+            <RadioButton
+              value="used"
+              label="Used"
+              style={styles.radioButton}
+              iconStyle={{ marginRight: 5 }}
+            />
+          </RadioButtonGroup>
         </div>
-
-        {condition[0] === undefined ? <div></div> : this.renderMakes(condition[0])}
-        {models === [] ? <div></div> : this.renderModels(models)}
-        {years === [] ? <div></div> : this.renderYears(years)}
+        <div>
+          <ul className="selection-container" style={{ display: 'flex' }}>
+            <li>{
+              condition[0] === undefined ? <div>
+              <SelectField 
+                hintText="Make"
+                hintStyle={{ left: 20 }} 
+                style={{width: 200}}
+                disabled={true}
+              />
+            </div> : this.renderMakes(condition[0])}</li>
+            <li>{models[0] === undefined ? <div>
+              <SelectField 
+                hintText="Model"
+                hintStyle={{ left: 20 }} 
+                style={{width: 200}}
+                disabled={true}
+              />
+            </div> : this.renderModels(models)}</li>
+            <li>{years[0] === undefined ? <div>
+              <SelectField 
+                hintText="Year"
+                hintStyle={{ left: 20 }} 
+                style={{width: 200}}
+                disabled={true}
+              />
+            </div> : this.renderYears(years)}</li>
+          </ul>
+        </div>
       </div>
     )
   }
