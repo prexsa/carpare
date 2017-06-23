@@ -30,6 +30,15 @@ body {
   margin: 0 auto;
 }
 
+.mpg-list {
+  list-style-type: none;
+  margin-bottom: -20px;
+}
+
+.sub-list-item {
+  font-size: 14px;
+}
+
 .specs-list {
   text-align: left;
 }

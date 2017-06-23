@@ -5,6 +5,29 @@ import { fetchSuggestions } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
 import Suggestions from '../containers/Suggestions.js';
 
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+
+
+const style = {
+  style: {
+    margin: 12,    
+  },
+  paperStyle: {
+    width: 115,
+    margin: 20,
+    border: 'none',
+    boxShadow: 'none',
+    textAlign: 'center',
+    display: 'inline-block',
+  }, 
+  emptyContainer: {
+    minWidth: 88,
+    height: 100,
+  }
+}
 
 class ModelLists extends Component {
   render () {
@@ -42,6 +65,16 @@ class ModelLists extends Component {
 
     return (
       <div>
+        <Paper style={style.paperStyle}>
+          <List style={{ textAlign: 'center' }}>
+            <ListItem disabled={true} style={style.emptyContainer}></ListItem>
+            <ListItem disabled={true} style={{ height: 139 }}>Combined</ListItem>
+            <ListItem disabled={true} style={{ height: 92 }}>0 - 60</ListItem>
+            <ListItem disabled={true} style={{ height: 109 }}>Horsepower</ListItem>
+            <ListItem disabled={true} style={{ height: 109 }}>Torque</ListItem>
+            <ListItem disabled={true} style={{ height: 92 }}>Drive Train</ListItem>
+          </List>
+        </Paper>
       {
         merge.map(details => {
           const id = details[0].id;

@@ -1,5 +1,21 @@
 import React, { Component } from 'react';
-import { Col, Thumbnail, MenuItem } from 'react-bootstrap';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+
+const style = {
+  style: {
+    margin: 12,    
+  },
+  paperStyle: {
+    width: 230,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+  }
+}
+
 
 const modelDetails = ({ detail }) => {
    console.log("details: ", detail)
@@ -85,32 +101,43 @@ console.log('extDimensions: ', extDimensions)
 // console.log('specStorage: ', specStorage)
     const curbWeight = specStorage.Curb_Weight || specStorage.Tco_Curb_Weight;
     const fuelCapacity = specStorage.Fuel_Capacity;
-    const zeroToSixty = specStorage.Manufacturer_0_60mph + " (seconds)" || 'n/a';
+    const zeroToSixty = specStorage.Manufacturer_0_60mph || 'n/a';
     const cityMpg = specStorage.Epa_City_Mpg || specStorage.Epa_City_Mpge ||  specStorage.Ege_City_Mpg || 'n/a';
     const hwyMpg = specStorage.Epa_Highway_Mpg || specStorage.Epa_Highway_Mpge || specStorage.Ege_Highway_Mpg || 'n/a';
     const combinedMpg = specStorage.Epa_Combined_Mpg || specStorage.Epa_Combined_Mpge || specStorage.Ege_Combined_Mpg || 'n/a';
 
   return (
-    <div>
-      <Col xs={6} md={4} key={styleId}>
-        <Thumbnail>
-          <ul className="specs-list">
-            <MenuItem header>{title}</MenuItem>
-            <MenuItem>{name}</MenuItem>
-            <MenuItem>City {cityMpg}/ Hwy {hwyMpg}/ Avg {combinedMpg}</MenuItem>
-            <MenuItem header>Performance</MenuItem>
-            <MenuItem>0 - 60: {zeroToSixty}</MenuItem>
-            <MenuItem>Horsepower: {hrspwr}{hrspwrRpm}</MenuItem>
-            <MenuItem>Torque: {torque}{torqueRpm}</MenuItem>
-            <MenuItem>Curb Weight: {curbWeight} lbs</MenuItem>
-            <MenuItem>{fuelType}</MenuItem>
-            <MenuItem>{drivenWheels}</MenuItem>
-            <MenuItem header>Cost</MenuItem>
-            <MenuItem>Base MSRP: ${numberWithCommas(msrpPrice)}</MenuItem>
+    <Paper key={styleId} style={style.paperStyle}>
+      <List style={{ textAlign: 'center' }}>
+        <ListItem disabled={true}>
+          MSRP $
+          <RaisedButton label={numberWithCommas(msrpPrice)} disabled={true} disabledLabelColor='black' style={style.style} />
+        </ListItem>
+        <ListItem disabled={true}>
+          <RaisedButton label={combinedMpg} />
+          <ul className="mpg-list" style={{ display: 'flex' }}>
+            <li><CardTitle title={cityMpg} subtitle="City"  titleStyle={{ fontSize: 14 }} subtitleStyle={{ fontSize: 11 }} /></li>
+            <li><CardTitle title={hwyMpg} subtitle="Highway"  titleStyle={{ fontSize: 14 }} subtitleStyle={{ fontSize: 11 }} /></li>
           </ul>
-        </Thumbnail>
-      </Col>
-    </div>
+        </ListItem>
+        <ListItem disabled={true}>
+          <RaisedButton label={zeroToSixty} style={style.style} />
+        </ListItem>
+        <ListItem disabled={true}>
+          <RaisedButton label={hrspwr} style={style.style} />
+          <br />
+          <span className="sub-list-item">{hrspwrRpm}</span>
+        </ListItem>
+        <ListItem disabled={true}>
+          <RaisedButton label={torque} style={style.style} />
+          <br />
+          <span className="sub-list-item">{torqueRpm}</span>
+        </ListItem>
+        <ListItem disabled={true}>
+          <RaisedButton label={drivenWheels} style={style.style} />
+        </ListItem>
+      </List>
+    </Paper>
   )
 }
 
