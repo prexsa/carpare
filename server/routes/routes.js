@@ -72,6 +72,18 @@ styleId = 401671415;
       })
   })
 
+  app.post('/photo', (req, res) => {
+    let styleId = req.body.styleId;
+styleId = 401671415;
+    const getPhotoUrl = `https://api.edmunds.com/api/media/v2/styles/${styleId}/photos?api_key=${API_KEY}`;
+console.log('getPhotoUrl ', getPhotoUrl)
+    axios.get(getPhotoUrl)
+      .then(resp => {
+// console.log('getPhotoUrl: ', resp.data)
+        res.send(resp.data);
+      })
+  })
+
   app.post('/suggestions', (req, res) => {
     console.log('/suggestions: ', req.body.vehicleClass);
     let respond;

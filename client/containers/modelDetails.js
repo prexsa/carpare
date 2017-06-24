@@ -108,6 +108,11 @@ console.log('extDimensions: ', extDimensions)
 
   return (
     <Paper key={styleId} style={style.paperStyle}>
+      <Card>
+        <CardMedia overlay={ <CardTitle title="Car Name" /> }>
+          <img />
+        </CardMedia>
+      </Card>
       <List style={{ textAlign: 'center' }}>
         <ListItem disabled={true}>
           MSRP $

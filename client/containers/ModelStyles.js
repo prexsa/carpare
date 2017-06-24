@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 //import { DropdownButton, MenuItem } from 'react-bootstrap';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { fetchSpecs, fetchEquipment } from '../actions/index.js';
+import { fetchSpecs, fetchEquipment, fetchPhoto } from '../actions/index.js';
 
 
 class ModelStyles extends Component {
@@ -19,6 +19,7 @@ class ModelStyles extends Component {
     //this.setState.submodelValue = styleName;
     this.props.fetchSpecs(styleId);
     this.props.fetchEquipment(styleId);
+    this.props.fetchPhoto(styleId);
   }
 
   renderSubmodel(submodels) {
@@ -68,7 +69,7 @@ class ModelStyles extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchSpecs, fetchEquipment }, dispatch);
+  return bindActionCreators({ fetchSpecs, fetchEquipment, fetchPhoto }, dispatch);
 }
 
 const mapStateToProps = ({ submodel }) => {

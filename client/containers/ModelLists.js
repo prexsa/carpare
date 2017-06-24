@@ -31,8 +31,8 @@ const style = {
 
 class ModelLists extends Component {
   render () {
-    const { specs, equipments } = this.props;
-
+    const { specs, equipments, photo } = this.props;
+console.log('photo: ', photo);
     // merge result of specs && equipment into grouped 
     let merge = [];
     if(specs.length === equipments.length) {
@@ -91,8 +91,8 @@ const mapDispatchToProps = ( dispatch ) => {
   return bindActionCreators({ fetchSuggestions }, dispatch);
 }
 
-const mapStateToProps = ({ specs, equipments }) => {
-  return { specs, equipments }
+const mapStateToProps = ({ specs, equipments, photo }) => {
+  return { specs, equipments, photo }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModelLists);
