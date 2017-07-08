@@ -16,10 +16,10 @@ class ModelStyles extends Component {
 
   fetchAction(styleId, styleName) {
     console.log("style.id: ", styleId)
-    //this.setState.submodelValue = styleName;
     this.props.fetchSpecs(styleId);
     this.props.fetchEquipment(styleId);
     this.props.fetchPhoto(styleId);
+    this.setState.submodelValue = styleName;
   }
 
   renderSubmodel(submodels) {
@@ -27,7 +27,7 @@ class ModelStyles extends Component {
     
     // console.log('submodels: ', submodels.years[0].styles)
     const styles = submodels.years[0].styles;
-    // console.log('styles: ', styles)
+    console.log('styles: ', styles)
     return(
       <SelectField 
         value={this.state.submodelValue} 
@@ -40,8 +40,8 @@ class ModelStyles extends Component {
             <MenuItem
               key={style.id}
               value={style.id}
-              primaryText={style.name}
-              onTouchTap={() => this.fetchAction(style.id, style.name)}
+              primaryText={style.trim}
+              onTouchTap={() => this.fetchAction(style.id, style.trim)}
             >
             </MenuItem>
           )

@@ -6,13 +6,19 @@ import Paper from 'material-ui/Paper';
 
 const style = {
   style: {
-    margin: 12,    
+    margin: 12,
+    fontSize: 24,
+    paddingBottom: 2,
+    marginBottom: 2
   },
   paperStyle: {
     width: 230,
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
+  },
+  imgSize: {
+    height: 200
   }
 }
 
@@ -33,7 +39,8 @@ const modelDetails = ({ detail }) => {
     const fuelType = specs.engine.fuelType;
     const marketClass = specs.categories.market;
     const epaClass = specs.categories.EPAClass;
-    const drivenWheels = specs.drivenWheels.charAt(0).toUpperCase() + specs.drivenWheels.slice(1);
+    let drivenWheels = specs.drivenWheels.split(" ");
+    drivenWheels = drivenWheels[0].toUpperCase();
     const invoicePrice = specs.price.baseInvoice;
     const msrpPrice = specs.price.baseMSRP;
     let hrspwrRpm;
@@ -109,8 +116,8 @@ console.log('extDimensions: ', extDimensions)
   return (
     <Paper key={styleId} style={style.paperStyle}>
       <Card>
-        <CardMedia overlay={ <CardTitle title="Car Name" /> }>
-          <img />
+        <CardMedia overlay={ <CardTitle title="Car Name" style={{padding: 2}} /> } >
+          <img src="" style={style.imgSize} />
         </CardMedia>
       </Card>
       <List style={{ textAlign: 'center' }}>
@@ -119,27 +126,25 @@ console.log('extDimensions: ', extDimensions)
           <RaisedButton label={numberWithCommas(msrpPrice)} disabled={true} disabledLabelColor='black' style={style.style} />
         </ListItem>
         <ListItem disabled={true}>
-          <RaisedButton label={combinedMpg} />
+          <CardTitle title={combinedMpg} subtitle="Combined" titleStyle={{ fontSize: 24 }} subtitleStyle={{ fontSize: 14 }} />
           <ul className="mpg-list" style={{ display: 'flex' }}>
             <li><CardTitle title={cityMpg} subtitle="City"  titleStyle={{ fontSize: 14 }} subtitleStyle={{ fontSize: 11 }} /></li>
             <li><CardTitle title={hwyMpg} subtitle="Highway"  titleStyle={{ fontSize: 14 }} subtitleStyle={{ fontSize: 11 }} /></li>
           </ul>
         </ListItem>
         <ListItem disabled={true}>
-          <RaisedButton label={zeroToSixty} style={style.style} />
+          <CardText style={style.style}>{zeroToSixty}</CardText>
         </ListItem>
         <ListItem disabled={true}>
-          <RaisedButton label={hrspwr} style={style.style} />
-          <br />
+          <CardText style={style.style}>{hrspwr}</CardText>
           <span className="sub-list-item">{hrspwrRpm}</span>
         </ListItem>
         <ListItem disabled={true}>
-          <RaisedButton label={torque} style={style.style} />
-          <br />
+          <CardText style={style.style}>{torque}</CardText>
           <span className="sub-list-item">{torqueRpm}</span>
         </ListItem>
         <ListItem disabled={true}>
-          <RaisedButton label={drivenWheels} style={style.style} />
+          <CardText style={style.style}>{drivenWheels}</CardText>
         </ListItem>
       </List>
     </Paper>

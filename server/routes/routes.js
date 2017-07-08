@@ -48,7 +48,7 @@ module.exports = (app, express) => {
     //console.log('req:styleDetails ', req.body);
     let styleId = req.body.styleId;
     // `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/engines?availability=standard&fmt=json&api_key=${API_KEY}`;
-styleId = 401671415;
+//styleId = 401671415;
     // const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
     const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}?view=full&fmt=json&api_key=${API_KEY}`;
 
@@ -62,7 +62,7 @@ styleId = 401671415;
   app.post('/equipmentDetails', (req, res) => {
     let styleId = req.body.styleId;
 // console.log('req:equipmentDetails ', styleId)
-styleId = 401671415;
+//styleId = 401671415;
     const getEquipmentUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
 
     axios.get(getEquipmentUrl)
@@ -74,7 +74,7 @@ styleId = 401671415;
 
   app.post('/photo', (req, res) => {
     let styleId = req.body.styleId;
-styleId = 401671415;
+//styleId = 401671415;
     const getPhotoUrl = `https://api.edmunds.com/api/media/v2/styles/${styleId}/photos?api_key=${API_KEY}`;
 console.log('getPhotoUrl ', getPhotoUrl)
     axios.get(getPhotoUrl)

@@ -25,7 +25,7 @@ const style = {
   }, 
   emptyContainer: {
     minWidth: 88,
-    height: 100,
+    height: 90,
   }
 }
 
@@ -67,12 +67,13 @@ console.log('photo: ', photo);
       <div>
         <Paper style={style.paperStyle}>
           <List style={{ textAlign: 'center' }}>
+            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="MPG" titleStyle={{ fontSize: 17 }}></CardTitle></ListItem>
             <ListItem disabled={true} style={style.emptyContainer}></ListItem>
-            <ListItem disabled={true} style={{ height: 139 }}>Combined</ListItem>
-            <ListItem disabled={true} style={{ height: 92 }}>0 - 60</ListItem>
-            <ListItem disabled={true} style={{ height: 109 }}>Horsepower</ListItem>
-            <ListItem disabled={true} style={{ height: 109 }}>Torque</ListItem>
-            <ListItem disabled={true} style={{ height: 92 }}>Drive Train</ListItem>
+            <ListItem disabled={true} style={style.emptyContainer}></ListItem>
+            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="0 - 60" subtitle="(seconds)" titleStyle={{ fontSize: 17 }} subtitleStyle={{ fontSize: 14 }} style={{ bottom: 70 }} ></CardTitle></ListItem>
+            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Horsepower" titleStyle={{ fontSize: 17 }} style={{ bottom: 73 }} ></CardTitle></ListItem>
+            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Torque" titleStyle={{ fontSize: 17 }} style={{ bottom: 40 }} ></CardTitle></ListItem>
+            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
           </List>
         </Paper>
       {
@@ -81,7 +82,6 @@ console.log('photo: ', photo);
           return <ModelDetails key={id} detail={details} />
         })
       }
-      <Suggestions />
       </div>
     )
   }

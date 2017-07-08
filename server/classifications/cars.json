@@ -20,6 +20,23 @@
         "make": "bmw",
         "model": "alpina-b6-gran-coupe",
         "submodel": "sedan"
+      },
+      {
+        "make": "cadillac",
+        "model": "cts-v",
+        "submodel": "sedan"
+      },
+      {
+        "make": "dodge",
+        "model": "charger",
+        "submodel": "srt-hellcat"
+      }
+    ],
+    "exotic": [
+      {
+        "make": "bentley",
+        "model": "flying-spur",
+        "submodel": "sedan"
       }
     ]
   },
@@ -36,6 +53,44 @@
         "make": "bentley",
         "model": "continental",
         "submodel": "supersports"
+      },
+      {
+        "make": "ferrari",
+        "model": "f12-berlinetta",
+        "submodel": "coupe"
+      }
+    ],
+    "flex fuel": [
+      {
+        "make": "buick",
+        "model": "regal",
+        "submodel": "sedan"
+      }
+    ],
+    "luxury": [
+      {
+        "make": "bmw",
+        "model": "3-series-edrive",
+        "submodel": "sedan"
+      },
+      {
+        "make": "lexus",
+        "model": "rc-350",
+        "submodel": "coupe"
+      },
+      {
+        "make": "infiniti",
+        "model": "q60-coupe",
+        "submodel": "coupe"
+      }
+    ]
+  },
+  "compact": {
+    "exotic": [
+      {
+        "make": "lamborghini",
+        "model": "huracan",
+        "submodel": "coupe"
       }
     ]
   }

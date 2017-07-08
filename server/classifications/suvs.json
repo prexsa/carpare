@@ -10,6 +10,18 @@
         "make": "bmw",
         "model": "x6-m",
         "submodel": "suv"
+      },
+      {
+        "make": "acura",
+        "model": "rdx",
+        "submodel": "suv"
+      }
+    ],
+    "luxury": [
+      {
+        "make": "land-rover",
+        "model": "range-rover-sport",
+        "submodel": "suv"
       }
     ]
   },
@@ -19,6 +31,13 @@
         "make": "mercedes-benz",
         "model": "gl-class",
         "submodel": "gl-63-amg"
+      }
+    ],
+    "performance": [
+      {
+        "make": "gmc",
+        "model": "yukon-xl",
+        "submodel": "suv"
       }
     ]
   }
