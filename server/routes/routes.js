@@ -46,7 +46,7 @@ module.exports = (app, express) => {
 
   app.post('/styleDetails', (req, res) => {
     //console.log('req:styleDetails ', req.body);
-    let styleId = req.body.styleId;
+    var styleId = req.body.styleId;
     // `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/engines?availability=standard&fmt=json&api_key=${API_KEY}`;
 //styleId = 401671415;
     // const getSpecUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
@@ -60,7 +60,7 @@ module.exports = (app, express) => {
   })
 
   app.post('/equipmentDetails', (req, res) => {
-    let styleId = req.body.styleId;
+    var styleId = req.body.styleId;
 // console.log('req:equipmentDetails ', styleId)
 //styleId = 401671415;
     const getEquipmentUrl = `https://api.edmunds.com/api/vehicle/v2/styles/${styleId}/equipment?availability=standard&equipmentType=OTHER&fmt=json&api_key=${API_KEY}`;
@@ -73,8 +73,9 @@ module.exports = (app, express) => {
   })
 
   app.post('/photo', (req, res) => {
-    let styleId = req.body.styleId;
-//styleId = 401671415;
+
+    var styleId = req.body.styleId;
+styleId = 401671415;
     const getPhotoUrl = `https://api.edmunds.com/api/media/v2/styles/${styleId}/photos?api_key=${API_KEY}`;
 console.log('getPhotoUrl ', getPhotoUrl)
     axios.get(getPhotoUrl)
@@ -86,12 +87,12 @@ console.log('getPhotoUrl ', getPhotoUrl)
 
   app.post('/suggestions', (req, res) => {
     console.log('/suggestions: ', req.body.vehicleClass);
-    let respond;
+    var respond;
     const vehicleClass = req.body.vehicleClass
     const type = vehicleClass.category.vehicleType.toLowerCase() + 's';
     const size = vehicleClass.category.vehicleSize.toLowerCase();
 
-    let market = [];
+    var market = [];
     market = vehicleClass.category.market.toLowerCase().split(',');
     console.log('market : ', market);
 
@@ -129,10 +130,10 @@ console.log('getPhotoUrl ', getPhotoUrl)
           respond = carObj;
         }
 
-        let marketArray = obj[size][market[0]];
+        var marketArray = obj[size][market[0]];
         console.log('marketArray: ', marketArray)
         // car is not part of market array
-        let found = false;
+        var found = false;
         marketArray.forEach(car => {
           if(car.make === carObj.make && car.model === carObj.model && car.submodel === carObj.submodel) {
             found = true;
