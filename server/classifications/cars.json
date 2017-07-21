@@ -46,6 +46,11 @@
         "make": "bmw",
         "model": "m4",
         "submodel": "coupe"
+      },
+      {
+        "make": "bmw",
+        "model": "m4-gts",
+        "submodel": "coupe"
       }
     ],
     "exotic": [
@@ -58,6 +63,11 @@
         "make": "ferrari",
         "model": "f12-berlinetta",
         "submodel": "coupe"
+      },
+      {
+        "make": "bentley",
+        "model": "continental-gt",
+        "submodel": "convertible"
       }
     ],
     "flex fuel": [
@@ -91,6 +101,34 @@
         "make": "lamborghini",
         "model": "huracan",
         "submodel": "coupe"
+      }
+    ],
+    "high-performance": [
+      {
+        "make": "chevrolet",
+        "model": "corvette",
+        "submodel": "convertible"
+      }
+    ],
+    "hatchback": [
+      {
+        "make": "fiat",
+        "model": "500",
+        "submodel": "abarth"
+      }
+    ],
+    "luxury": [
+      {
+        "make": "porsche",
+        "model": "911",
+        "submodel": "coupe"
+      }
+    ],
+    "performance": [
+      {
+        "make": "mazda",
+        "model": "mx-5-miata-rf",
+        "submodel": "convertible"
       }
     ]
   }

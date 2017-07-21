@@ -15,6 +15,11 @@
         "make": "acura",
         "model": "rdx",
         "submodel": "suv"
+      },
+      {
+        "make": "mercedes-benz",
+        "model": "glc-class-coupe",
+        "submodel": "amg-glc-43"
       }
     ],
     "luxury": [
@@ -37,6 +42,15 @@
       {
         "make": "gmc",
         "model": "yukon-xl",
+        "submodel": "suv"
+      }
+    ]
+  },
+  "compact": {
+    "crossover": [
+      {
+        "make": "buick",
+        "model": "encore",
         "submodel": "suv"
       }
     ]

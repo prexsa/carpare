@@ -2,13 +2,6 @@ const path = require('path');
 const axios = require('axios');
 const config = require('../../config.js');
 const fs = require('fs');
-//const cars = require('../classifications/cars.js');
-//const electricHybrids = require('../classifications/electricHybrids.js');
-//const factoryTuner = require('../classifications/factory-tuner.js');
-//const luxury = require('../classifications/luxury.js');
-// const suvs = require('../classifications/suvs.js');
-//const suvArray = require('../classifications/suvs.js');
-//const trucks = require('../classifications/trucks.js');
 
 const API_KEY = config.edmunds;
 
@@ -77,7 +70,7 @@ module.exports = (app, express) => {
     var styleId = req.body.styleId;
 styleId = 401671415;
     const getPhotoUrl = `https://api.edmunds.com/api/media/v2/styles/${styleId}/photos?api_key=${API_KEY}`;
-console.log('getPhotoUrl ', getPhotoUrl)
+// console.log('getPhotoUrl ', getPhotoUrl)
     axios.get(getPhotoUrl)
       .then(resp => {
 // console.log('getPhotoUrl: ', resp.data)
@@ -86,7 +79,7 @@ console.log('getPhotoUrl ', getPhotoUrl)
   })
 
   app.post('/suggestions', (req, res) => {
-    console.log('/suggestions: ', req.body.vehicleClass);
+    // console.log('/suggestions: ', req.body.vehicleClass);
     var respond;
     const vehicleClass = req.body.vehicleClass
     const type = vehicleClass.category.vehicleType.toLowerCase() + 's';
@@ -94,7 +87,7 @@ console.log('getPhotoUrl ', getPhotoUrl)
 
     var market = [];
     market = vehicleClass.category.market.toLowerCase().split(',');
-    console.log('market : ', market);
+    // console.log('market : ', market);
 
     const carObj = {
       make: vehicleClass.make.niceName,
@@ -102,17 +95,17 @@ console.log('getPhotoUrl ', getPhotoUrl)
       submodel: vehicleClass.submodel.niceName
     }
 
-    console.log('carObj: ', carObj)
+    // console.log('carObj: ', carObj)
     // check vehicleType: car, suv, trucks, van
     // check vehicleSize: compact, midsize, large
     // check market, etc... crossover, factory-tuner, luxury, performance
     const jsonPath = `../carpare/server/classifications/${type}.json`;
-    console.log('jsonPath: ', jsonPath)
+    // console.log('jsonPath: ', jsonPath)
       fs.readFile(jsonPath, 'utf8', (err, data) => {
         if(err) throw err;
 
         const obj = JSON.parse(data);
-        console.log('read file data: ', obj);
+        // console.log('read file data: ', obj);
 
         // if vehicle size does not exist
         if(!([size] in obj)) {
@@ -131,7 +124,7 @@ console.log('getPhotoUrl ', getPhotoUrl)
         }
 
         var marketArray = obj[size][market[0]];
-        console.log('marketArray: ', marketArray)
+        // console.log('marketArray: ', marketArray)
         // car is not part of market array
         var found = false;
         marketArray.forEach(car => {
@@ -146,9 +139,9 @@ console.log('getPhotoUrl ', getPhotoUrl)
         }
 
         const randomize = Math.floor((marketArray.length) * Math.random());
-        console.log('randomize: ', randomize)
+        // console.log('randomize: ', randomize)
         const selectedCar = marketArray[randomize];
-        console.log('selectedCar: ', selectedCar)
+        // console.log('selectedCar: ', selectedCar)
         if(selectedCar.make === carObj.make && selectedCar.model === carObj.model && selectedCar.submodel === carObj.submodel) {
           marketArray[randomize];
         }

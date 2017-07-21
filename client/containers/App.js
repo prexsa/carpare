@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DropDownList from '../components/dropdownlist.js';
+import DropDownList from '../containers/dropdownlist.js';
 import ModelStyles from '../containers/ModelStyles.js';
 import Specs from '../containers/specs.js';
 import ModelLists from '../containers/ModelLists.js';

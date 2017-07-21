@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchSuggestions } from '../actions/index.js';
+import { fetchCar, fetchSuggestions } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
-import Suggestions from '../containers/Suggestions.js';
+// import Suggestions from '../containers/Suggestions.js';
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -31,8 +31,8 @@ const style = {
 
 class ModelLists extends Component {
   render () {
-    const { specs, equipments, photo } = this.props;
-console.log('photo: ', photo);
+    const { specs, equipments, photo, suggestion } = this.props;
+console.log('suggestion: ', suggestion);
     // merge result of specs && equipment into grouped 
     let merge = [];
     if(specs.length === equipments.length) {
@@ -48,7 +48,8 @@ console.log('photo: ', photo);
     merge.reverse();
 
     console.log('merge: ', merge);
-    if(merge.length > 0) {
+
+    if( merge[0] ) {
 
       const vehicleType = {
         category: merge[0][0].categories,
@@ -58,6 +59,7 @@ console.log('photo: ', photo);
       }
       
       this.props.fetchSuggestions(vehicleType);
+      
     }
 
     //console.log('market: ', market)
@@ -88,11 +90,11 @@ console.log('photo: ', photo);
 }
 
 const mapDispatchToProps = ( dispatch ) => {
-  return bindActionCreators({ fetchSuggestions }, dispatch);
+  return bindActionCreators({ fetchCar, fetchSuggestions }, dispatch);
 }
 
-const mapStateToProps = ({ specs, equipments, photo }) => {
-  return { specs, equipments, photo }
+const mapStateToProps = ({ specs, equipments, photo, suggestion }) => {
+  return { specs, equipments, photo, suggestion }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModelLists);

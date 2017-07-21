@@ -24,7 +24,7 @@ const style = {
 
 
 const modelDetails = ({ detail }) => {
-   console.log("details: ", detail)
+   // console.log("details: ", detail)
     const specs = detail[0];
     const equipmentArray = detail[1].equipment;
   // console.log('equipment: ', equipmentArray)

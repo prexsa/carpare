@@ -4,13 +4,15 @@ import submodelReducer from './reducer_submodel.js';
 import specsReducer from './reducer_specs.js';
 import equipmentReducer from './reducer_equipment.js';
 import photoReducer from './reducer_photo.js';
+import suggestionReducer from './reducer_suggestion.js';
 
 const rootReducer = combineReducers({
   condition: conditionReducer,
   submodel: submodelReducer,
   specs: specsReducer,
   equipments: equipmentReducer,
-  photo: photoReducer
+  photo: photoReducer,
+  suggestion: suggestionReducer
 });
 
 export default rootReducer;
