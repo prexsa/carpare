@@ -5,6 +5,11 @@
         "make": "toyota",
         "model": "tundra",
         "submodel": "crewmax-cab"
+      },
+      {
+        "make": "toyota",
+        "model": "tundra",
+        "submodel": "double-cab"
       }
     ]
   }

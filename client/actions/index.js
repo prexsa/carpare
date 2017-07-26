@@ -6,6 +6,7 @@ export const FETCH_SPECS = 'fetch_specs';
 export const FETCH_EQUIPMENT = 'fetch_equipment';
 export const FETCH_PHOTO = 'fetch_photo';
 export const FETCH_SUGGESTIONS = 'fetch_suggestions';
+export const FETCH_STYLEID = 'fetch_styleid'
 
 export function fetchCondition(condition) {
   // console.log('fetchCondition: ', condition)
@@ -31,7 +32,7 @@ export function fetchCar(state, year) {
     modelNiceName: state.modelNiceName,
     year: year
   }
-// console.log('modelMakeYear', modelMakeYear)
+ console.log('modelMakeYear', modelMakeYear)
   return function(dispatch) {
     axios.post('/modelDetails', { modelMakeYear })
       .then(resp => {
@@ -108,6 +109,21 @@ export function fetchSuggestions(vehicleClass) {
       })
       .catch(err => {
         console.log('fetch suggestions error: ', err);
+      })
+  }
+}
+
+export function fetchStyleId(suggestedSpecs) {
+  return function(dispatch) {
+    axios.post('/styleid', { suggestedSpecs })
+      .then(resp => {
+        dispatch({
+          type: FETCH_STYLEID,
+          payload: resp.data
+        })
+      })
+      .catch(err => {
+        console.log('fetch suggested car style id error: ', err);
       })
   }
 }

@@ -20,6 +20,11 @@
         "make": "mercedes-benz",
         "model": "glc-class-coupe",
         "submodel": "amg-glc-43"
+      },
+      {
+        "make": "jeep",
+        "model": "grand-cherokee-srt",
+        "submodel": "suv"
       }
     ],
     "luxury": [
@@ -36,6 +41,11 @@
         "make": "mercedes-benz",
         "model": "gl-class",
         "submodel": "gl-63-amg"
+      },
+      {
+        "make": "tesla",
+        "model": "model-x",
+        "submodel": "suv"
       }
     ],
     "performance": [
@@ -51,6 +61,11 @@
       {
         "make": "buick",
         "model": "encore",
+        "submodel": "suv"
+      },
+      {
+        "make": "fiat",
+        "model": "500x",
         "submodel": "suv"
       }
     ]

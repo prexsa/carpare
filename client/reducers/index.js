@@ -5,6 +5,7 @@ import specsReducer from './reducer_specs.js';
 import equipmentReducer from './reducer_equipment.js';
 import photoReducer from './reducer_photo.js';
 import suggestionReducer from './reducer_suggestion.js';
+import styleIdReducer from './reducer_styleId.js';
 
 const rootReducer = combineReducers({
   condition: conditionReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   specs: specsReducer,
   equipments: equipmentReducer,
   photo: photoReducer,
-  suggestion: suggestionReducer
+  suggestion: suggestionReducer,
+  styleId: styleIdReducer
 });
 
 export default rootReducer;

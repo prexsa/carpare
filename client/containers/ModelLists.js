@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCar, fetchSuggestions } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
-// import Suggestions from '../containers/Suggestions.js';
+import Suggestions from '../containers/Suggestions.js';
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -29,10 +29,13 @@ const style = {
   }
 }
 
+let selectedYear;
+let stateOfCar;
+
 class ModelLists extends Component {
   render () {
     const { specs, equipments, photo, suggestion } = this.props;
-console.log('suggestion: ', suggestion);
+
     // merge result of specs && equipment into grouped 
     let merge = [];
     if(specs.length === equipments.length) {
@@ -47,22 +50,33 @@ console.log('suggestion: ', suggestion);
 
     merge.reverse();
 
-    console.log('merge: ', merge);
+    //console.log('merge: ', merge);
+    const getSuggestion = (merge, suggestion) => {
+      let stateYear = {};
 
-    if( merge[0] ) {
+      if(suggestion.length > 0) {
+          selectedYear = merge[0][0].year.year;
+          stateOfCar = merge[0][0].states[0].toLowerCase();
 
-      const vehicleType = {
-        category: merge[0][0].categories,
-        make: merge[0][0].make,
-        model: merge[0][0].model,
-        submodel: merge[0][0].submodel
+          stateYear = {
+            year: selectedYear,
+            condition: stateOfCar
+          }
+
+        return <Suggestions stateYear={stateYear} />
+      }else{
+        if( merge.length > 0 ) {
+          const vehicleType = {
+            category: merge[0][0].categories,
+            make: merge[0][0].make,
+            model: merge[0][0].model,
+            submodel: merge[0][0].submodel
+          }
+          this.props.fetchSuggestions(vehicleType); 
+        }
       }
-      
-      this.props.fetchSuggestions(vehicleType);
-      
-    }
 
-    //console.log('market: ', market)
+    }
 
 
     return (
@@ -83,6 +97,9 @@ console.log('suggestion: ', suggestion);
           const id = details[0].id;
           return <ModelDetails key={id} detail={details} />
         })
+      }
+      {
+        getSuggestion(merge, suggestion)
       }
       </div>
     )

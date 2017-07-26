@@ -78,6 +78,21 @@ styleId = 401671415;
       })
   })
 
+  app.post('/styleid', (req, res) => {
+    console.log('/styleId: ', req.body.suggestedSpecs)
+    const makeNiceName = req.body.suggestedSpecs.make;
+    const modelNiceName = req.body.suggestedSpecs.model;
+    const year = req.body.suggestedSpecs.year;
+
+    const getModelTypeList = `https://api.edmunds.com/api/vehicle/v2/${makeNiceName}/${modelNiceName}/${year}?view=full&fmt=json&api_key=${API_KEY}`;
+
+    axios.get(getModelTypeList)
+      .then(resp => {
+        // console.log('getModelTypeList: ', resp.data);
+        res.send(resp.data);
+      })
+  })
+
   app.post('/suggestions', (req, res) => {
     // console.log('/suggestions: ', req.body.vehicleClass);
     var respond;

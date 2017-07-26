@@ -30,12 +30,31 @@
         "make": "dodge",
         "model": "charger",
         "submodel": "srt-hellcat"
+      },
+      {
+        "make": "dodge",
+        "model": "challenger",
+        "submodel": "srt-hellcat"
       }
     ],
     "exotic": [
       {
         "make": "bentley",
         "model": "flying-spur",
+        "submodel": "sedan"
+      }
+    ],
+    "luxury": [
+      {
+        "make": "jaguar",
+        "model": "xj",
+        "submodel": "sedan"
+      }
+    ],
+    "performance": [
+      {
+        "make": "chrysler",
+        "model": "300",
         "submodel": "sedan"
       }
     ]
@@ -51,6 +70,11 @@
         "make": "bmw",
         "model": "m4-gts",
         "submodel": "coupe"
+      },
+      {
+        "make": "mercedes-benz",
+        "model": "cla-class",
+        "submodel": "amg-cla-45"
       }
     ],
     "exotic": [
@@ -67,6 +91,26 @@
       {
         "make": "bentley",
         "model": "continental-gt",
+        "submodel": "convertible"
+      },
+      {
+        "make": "bentley",
+        "model": "continental-gt",
+        "submodel": "v8-s"
+      },
+      {
+        "make": "aston-martin",
+        "model": "db11",
+        "submodel": "coupe"
+      },
+      {
+        "make": "bentley",
+        "model": "continental-gt",
+        "submodel": "speed"
+      },
+      {
+        "make": "lamborghini",
+        "model": "aventador",
         "submodel": "convertible"
       }
     ],
@@ -92,6 +136,28 @@
         "make": "infiniti",
         "model": "q60-coupe",
         "submodel": "coupe"
+      },
+      {
+        "make": "acura",
+        "model": "tlx",
+        "submodel": "sedan"
+      },
+      {
+        "make": "infiniti",
+        "model": "q60",
+        "submodel": "coupe"
+      },
+      {
+        "make": "lexus",
+        "model": "es-350",
+        "submodel": "sedan"
+      }
+    ],
+    "hybrid": [
+      {
+        "make": "honda",
+        "model": "accord-hybrid",
+        "submodel": "sedan"
       }
     ]
   },
@@ -100,6 +166,11 @@
       {
         "make": "lamborghini",
         "model": "huracan",
+        "submodel": "coupe"
+      },
+      {
+        "make": "lotus",
+        "model": "evora-400",
         "submodel": "coupe"
       }
     ],
@@ -129,6 +200,13 @@
         "make": "mazda",
         "model": "mx-5-miata-rf",
         "submodel": "convertible"
+      }
+    ],
+    "factory tuner": [
+      {
+        "make": "subaru",
+        "model": "wrx",
+        "submodel": "sti"
       }
     ]
   }

@@ -147,7 +147,7 @@ class DropDownList extends Component {
     const { condition } = this.props;
     //console.log('condition: ', condition)
     const { models, years } = this.state;
-console.log('models: ', models, " years: ", years)
+//console.log('models: ', models, " years: ", years)
     return (
       <div>
         <div className="condition-container">
