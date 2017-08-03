@@ -80,9 +80,14 @@ styleId = 401671415;
 
   app.post('/styleid', (req, res) => {
     console.log('/styleId: ', req.body.suggestedSpecs)
-    const makeNiceName = req.body.suggestedSpecs.make;
-    const modelNiceName = req.body.suggestedSpecs.model;
-    const year = req.body.suggestedSpecs.year;
+    let makeNiceName = req.body.suggestedSpecs.make;
+    let modelNiceName = req.body.suggestedSpecs.model;
+    let year = req.body.suggestedSpecs.year;
+// remove after implmenting feature
+    year = 2016;
+    makeNiceName = 'bentley';
+    modelNiceName = 'continental-gt';
+
 
     const getModelTypeList = `https://api.edmunds.com/api/vehicle/v2/${makeNiceName}/${modelNiceName}/${year}?view=full&fmt=json&api_key=${API_KEY}`;
 
@@ -175,60 +180,5 @@ const writeToJSON = (jsonObj, type) => {
   })
 }
 
-    // http://gyandeeps.com/json-file-write/
-    // https://evdokimovm.github.io/javascript/nodejs/2016/11/11/write-data-to-local-json-file-using-nodejs.html
-/*
-        let differentMarket; 
-        // console.log('market: ', market[0])
-        // console.log('obj[size]: ', obj[size])
-        if(size && obj[size][market[0]]){
-          // console.log('1', obj[size][market[0]])
-          differentMarket = obj[size][market[0]];
-        } else {
-          // create a size
-          // console.log('2')
-          obj[size] = { [market[0]]: [] };
-          differentMarket = obj[size][market[0]];
-        console.log('differentMarket 1: ', differentMarket)
-        console.log('obj1: ', obj)
-          differentMarket.push(carObj);
-        console.log('differentMarket 2: ', differentMarket)
-          console.log('obj2: ', obj)
-          fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(obj, null, 4), (err) => {
-            if(err) { console.error(err); return; }
-            console.log("File has been created");
-          })
-        }
-
-        differentMarket;
-
-        // returns a single car object
-        // of shared market class for suggestions
-        let respond;
-        if(differentMarket.length > 0) {
-          const arrayLength = differentMarket.length + 1;
-          const randomize = Math.floor((differentMarket.length + 1) * Math.random());
-          const selectedVehicle = differentMarket[randomize];
-
-          if(carObj === selectedVehicle) {
-            if(arrayLength >= randomize) {
-              respond = differentMarket[randomize - 1];
-            }else{
-              respond = differentMarket[randomize + 1];
-            }
-          }
-        } else {
-          differentMarket.push(carObj);
-          respond = "No suggestions available"
-        }
-
-        respond;
-
-
-        res.send(respond);
-        
-        fs.writeFile('../carpare/server/classifications/suvs.json', JSON.stringify(carObj, null, 4), (err) => {
-          if(err) { console.error(err); return; }
-          console.log("File has been created");
-        })
-*/
+// http://gyandeeps.com/json-file-write/
+// https://evdokimovm.github.io/javascript/nodejs/2016/11/11/write-data-to-local-json-file-using-nodejs.html

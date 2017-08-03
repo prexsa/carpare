@@ -3,24 +3,33 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSpecs, fetchEquipment, fetchPhoto, fetchStyleId } from '../actions/index.js';
 
+let randomInt;
 class Suggestions extends Component {
-  render() {
-    console.log('props: ', this.props);
-    const stateYear = this.props.stateYear;
+  componentWillReceiveProps() {
+    const merge = this.props.merge;
     const { suggestion, styleId } = this.props;
-    Object.assign(stateYear, suggestion[0]);
-console.log('stateYear: ', stateYear);
-  this.props.fetchStyleId(stateYear);
-  // Start here! Need to add actions for fetchSuggestionStyleId
+  }
 
-  //console.log('suggestion styleId: ', styleId)
-  
+  render() {
+    const suggestedModel = Object.assign(stateYear, suggestion[0]);
+
+    if(styleId === undefined || styleId.length == 0) {
+      this.props.fetchStyleId(suggestedModel);
+    }
+
+    if(styleId.length > 0) {
+      let styleIdSug;
+      const styleList = styleId[0].styles;
+      
+      if(randomInt === undefined) {
+        randomInt = Math.floor(styleList.length * Math.random());
+        styleIdSug = styleList[randomInt].id;
+        this.props.fetchSpecs(styleIdSug);
+        this.props.fetchEquipment(styleIdSug);
+        this.props.fetchPhoto(styleIdSug);
+      }
+    }
   // https://api.edmunds.com/api/vehicle/v2/honda/civic/2013?view=full&fmt=json&api_key=7y4d6pwpy5h3g2gyn8sp2k5u
-    // this.props.fetchSpecs(styleId);
-    // this.props.fetchEquipment(styleId);
-    // this.props.fetchPhoto(styleId);
-
-
     return (
       <div>
         Hello world, I'm Suggestions

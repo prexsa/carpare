@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCar, fetchSuggestions } from '../actions/index.js';
+import { fetchCar, fetchSuggestions, fetchStyleId } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
 import Suggestions from '../containers/Suggestions.js';
 
@@ -33,10 +33,15 @@ let selectedYear;
 let stateOfCar;
 
 class ModelLists extends Component {
-  render () {
-    const { specs, equipments, photo, suggestion } = this.props;
+// https://facebook.github.io/react/docs/react-component.html
+  componentWillReceiveProps() {
+    const { styleId } = this.props;
+    console.log('styleId: ', styleId)
+  }
 
-    // merge result of specs && equipment into grouped 
+  render () {
+    const { specs, equipments, suggestion } = this.props;
+
     let merge = [];
     if(specs.length === equipments.length) {
       specs.forEach((spec, i) => {
@@ -49,35 +54,28 @@ class ModelLists extends Component {
     }
 
     merge.reverse();
+  
+    if(suggestion.length > 0) {
+      // console.log('suggestion: ', suggestion)
+      const year = merge[0][0].year.year;
+      const condition = merge[0][0].states[0].toLowerCase();
+      const suggestedModel = Object.assign({ year, condition }, suggestion[0]);
 
-    //console.log('merge: ', merge);
-    const getSuggestion = (merge, suggestion) => {
-      let stateYear = {};
+      // console.log('suggestedModel: ', suggestedModel)
+      this.props.fetchStyleId(suggestedModel);
 
-      if(suggestion.length > 0) {
-          selectedYear = merge[0][0].year.year;
-          stateOfCar = merge[0][0].states[0].toLowerCase();
-
-          stateYear = {
-            year: selectedYear,
-            condition: stateOfCar
-          }
-
-        return <Suggestions stateYear={stateYear} />
-      }else{
-        if( merge.length > 0 ) {
-          const vehicleType = {
-            category: merge[0][0].categories,
-            make: merge[0][0].make,
-            model: merge[0][0].model,
-            submodel: merge[0][0].submodel
-          }
-          this.props.fetchSuggestions(vehicleType); 
+    }else{
+      // if no suggestion, go fetch a suggestion
+      if(merge.length > 0) {
+        const vehicleType = {
+          category: merge[0][0].categories,
+          make: merge[0][0].make,
+          model: merge[0][0].model,
+          submodel: merge[0][0].submodel
         }
+        this.props.fetchSuggestions(vehicleType);
       }
-
     }
-
 
     return (
       <div>
@@ -92,14 +90,12 @@ class ModelLists extends Component {
             <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
           </List>
         </Paper>
-      {
+      {/*
         merge.map(details => {
           const id = details[0].id;
           return <ModelDetails key={id} detail={details} />
         })
-      }
-      {
-        getSuggestion(merge, suggestion)
+        */
       }
       </div>
     )
@@ -107,11 +103,11 @@ class ModelLists extends Component {
 }
 
 const mapDispatchToProps = ( dispatch ) => {
-  return bindActionCreators({ fetchCar, fetchSuggestions }, dispatch);
+  return bindActionCreators({ fetchCar, fetchSuggestions, fetchStyleId }, dispatch);
 }
 
-const mapStateToProps = ({ specs, equipments, photo, suggestion }) => {
-  return { specs, equipments, photo, suggestion }
+const mapStateToProps = ({ specs, equipments, photo, suggestion, styleId }) => {
+  return { specs, equipments, photo, suggestion, styleId }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModelLists);
