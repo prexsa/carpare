@@ -24,7 +24,7 @@ const style = {
 
 
 const modelDetails = ({ detail }) => {
-   // console.log("details: ", detail)
+   console.log("details: ", detail)
     const specs = detail[0];
     const equipmentArray = detail[1].equipment;
   // console.log('equipment: ', equipmentArray)
@@ -32,7 +32,8 @@ const modelDetails = ({ detail }) => {
     const styleId = specs.id;
     const name = specs.name;
     const make = specs.make.name;
-    const modelName = specs.model.name;
+    const makeName = specs.make.name;
+    const submodelName = specs.submodel.modelName;
     const year = specs.year.year;
     const hrspwr = specs.engine.horsepower || 'n/a';
     const torque = specs.engine.torque || 'n/a';
@@ -54,7 +55,6 @@ const modelDetails = ({ detail }) => {
       torqueRpm = " ";
     }
 
-    const title = make + " " + modelName + " " + year;
     const numberWithCommas = (x) => {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -116,7 +116,7 @@ console.log('extDimensions: ', extDimensions)
   return (
     <Paper key={styleId} style={style.paperStyle}>
       <Card>
-        <CardMedia overlay={ <CardTitle title="Car Name" style={{padding: 2}} /> } >
+        <CardMedia overlay={ <CardTitle title={makeName} subtitle={submodelName} style={{padding: 2}} /> } >
           <img src="" style={style.imgSize} />
         </CardMedia>
       </Card>

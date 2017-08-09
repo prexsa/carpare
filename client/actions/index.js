@@ -32,7 +32,7 @@ export function fetchCar(state, year) {
     modelNiceName: state.modelNiceName,
     year: year
   }
- console.log('modelMakeYear', modelMakeYear)
+ //console.log('modelMakeYear', modelMakeYear)
   return function(dispatch) {
     axios.post('/modelDetails', { modelMakeYear })
       .then(resp => {

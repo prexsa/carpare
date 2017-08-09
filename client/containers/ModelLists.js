@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCar, fetchSuggestions, fetchStyleId } from '../actions/index.js';
+import { fetchCar, fetchSuggestions, fetchStyleId, fetchSpecs, fetchEquipment } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
 import Suggestions from '../containers/Suggestions.js';
 
@@ -31,17 +31,26 @@ const style = {
 
 let selectedYear;
 let stateOfCar;
+let randomInt;
 
 class ModelLists extends Component {
 // https://facebook.github.io/react/docs/react-component.html
-  componentWillReceiveProps() {
-    const { styleId } = this.props;
-    console.log('styleId: ', styleId)
+  constructor(props) {
+    super(props);
+
+    this.state = { merge: [] };
+
+    this.handleMerge = this.handleMerge.bind(this);
+    this.handleSuggestion = this.handleSuggestion.bind(this);
+    this.handleSuggestionStyleId = this.handleSuggestionStyleId.bind(this);
   }
 
-  render () {
-    const { specs, equipments, suggestion } = this.props;
+  componentWillReceiveProps(nextProps) {
+    //console.log('nextProps: ', nextProps)
+    const { specs, equipments, suggestion, styleId } = nextProps;
 
+    // merge results of specs and equipment, data is received
+    // from two different endpoints
     let merge = [];
     if(specs.length === equipments.length) {
       specs.forEach((spec, i) => {
@@ -54,19 +63,23 @@ class ModelLists extends Component {
     }
 
     merge.reverse();
-  
-    if(suggestion.length > 0) {
-      // console.log('suggestion: ', suggestion)
-      const year = merge[0][0].year.year;
-      const condition = merge[0][0].states[0].toLowerCase();
-      const suggestedModel = Object.assign({ year, condition }, suggestion[0]);
+    this.setState({ merge });
 
-      // console.log('suggestedModel: ', suggestedModel)
-      this.props.fetchStyleId(suggestedModel);
-
+    if(suggestion.length <= 0) {
+      this.handleMerge(merge);
     }else{
-      // if no suggestion, go fetch a suggestion
-      if(merge.length > 0) {
+      if(styleId.length <= 0) {
+        this.handleSuggestion(merge, suggestion);
+      }
+
+      this.handleSuggestionStyleId(styleId);
+    }
+
+    return true;
+  }
+
+  handleMerge(merge) {
+    if(merge.length > 0) {
         const vehicleType = {
           category: merge[0][0].categories,
           make: merge[0][0].make,
@@ -74,12 +87,39 @@ class ModelLists extends Component {
           submodel: merge[0][0].submodel
         }
         this.props.fetchSuggestions(vehicleType);
+    }
+  }
+
+  handleSuggestion(merge, suggest) {
+      const year = merge[0][0].year.year;
+      const condition = merge[0][0].states[0].toLowerCase();
+      const suggestedModel = Object.assign({ year, condition }, suggest[0]);
+
+      this.props.fetchStyleId(suggestedModel);
+      
+  }
+
+  handleSuggestionStyleId(styleId) {
+    //console.log('styleId: ', styleId);
+    if(styleId.length > 0) {
+      let styleIdSug;
+      const styleList = styleId[0].styles;
+      //console.log('styleList: ', styleList)
+      if(randomInt === undefined) {
+        randomInt = Math.floor(styleList.length * Math.random());
+        styleIdSug = styleList[randomInt].id;
+        this.props.fetchSpecs(styleIdSug);
+        this.props.fetchEquipment(styleIdSug);
+        //this.props.fetchPhoto(styleIdSug);
       }
     }
+  }
 
+
+  render () {
     return (
       <div>
-        <Paper style={style.paperStyle}>
+        {/* <Paper style={style.paperStyle}>
           <List style={{ textAlign: 'center' }}>
             <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="MPG" titleStyle={{ fontSize: 17 }}></CardTitle></ListItem>
             <ListItem disabled={true} style={style.emptyContainer}></ListItem>
@@ -89,13 +129,13 @@ class ModelLists extends Component {
             <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Torque" titleStyle={{ fontSize: 17 }} style={{ bottom: 40 }} ></CardTitle></ListItem>
             <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
           </List>
-        </Paper>
-      {/*
-        merge.map(details => {
+        </Paper> */}
+      {
+        this.state.merge.map(details => {
           const id = details[0].id;
           return <ModelDetails key={id} detail={details} />
         })
-        */
+      
       }
       </div>
     )
@@ -103,7 +143,7 @@ class ModelLists extends Component {
 }
 
 const mapDispatchToProps = ( dispatch ) => {
-  return bindActionCreators({ fetchCar, fetchSuggestions, fetchStyleId }, dispatch);
+  return bindActionCreators({ fetchCar, fetchSuggestions, fetchStyleId, fetchSpecs, fetchEquipment }, dispatch);
 }
 
 const mapStateToProps = ({ specs, equipments, photo, suggestion, styleId }) => {

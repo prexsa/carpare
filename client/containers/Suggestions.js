@@ -5,13 +5,36 @@ import { fetchSpecs, fetchEquipment, fetchPhoto, fetchStyleId } from '../actions
 
 let randomInt;
 class Suggestions extends Component {
+  constructor(props) {
+    super(props);
+    console.log('suggestion: super props ')
+  }
+
   componentWillReceiveProps() {
-    const merge = this.props.merge;
-    const { suggestion, styleId } = this.props;
+    console.log('suggestion: ', this.props)
   }
 
   render() {
-    const suggestedModel = Object.assign(stateYear, suggestion[0]);
+    return (
+      <div>
+        Hello world, I'm Suggestions
+      </div>
+    )
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchSpecs, fetchEquipment, fetchPhoto, fetchStyleId }, dispatch);
+}
+
+const mapStateToProps = ({ suggestion, styleId }) => {
+  return { suggestion, styleId }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);
+
+
+/*    const suggestedModel = Object.assign(stateYear, suggestion[0]);
 
     if(styleId === undefined || styleId.length == 0) {
       this.props.fetchStyleId(suggestedModel);
@@ -30,20 +53,4 @@ class Suggestions extends Component {
       }
     }
   // https://api.edmunds.com/api/vehicle/v2/honda/civic/2013?view=full&fmt=json&api_key=7y4d6pwpy5h3g2gyn8sp2k5u
-    return (
-      <div>
-        Hello world, I'm Suggestions
-      </div>
-    )
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchSpecs, fetchEquipment, fetchPhoto, fetchStyleId }, dispatch);
-}
-
-const mapStateToProps = ({ suggestion, styleId }) => {
-  return { suggestion, styleId }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);
+*/

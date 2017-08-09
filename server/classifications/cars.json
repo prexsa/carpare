@@ -112,6 +112,11 @@
         "make": "lamborghini",
         "model": "aventador",
         "submodel": "convertible"
+      },
+      {
+        "make": "bentley",
+        "model": "continental-gt",
+        "submodel": "coupe"
       }
     ],
     "flex fuel": [

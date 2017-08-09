@@ -6,6 +6,18 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { fetchSpecs, fetchEquipment, fetchPhoto } from '../actions/index.js';
 
+const sorting = (a, b) => {
+  const carA = a.name.toUpperCase();
+  const carB = b.name.toUpperCase();
+
+  let comparison = 0;
+  if(carA > carB) {
+    comparison = 1;
+  }else if(carA < carB) {
+    comparison = -1;
+  }
+  return comparison;
+}
 
 class ModelStyles extends Component {
   constructor(props) {
@@ -25,9 +37,13 @@ class ModelStyles extends Component {
   renderSubmodel(submodels) {
     if(submodels === undefined ) return;
     
-    // console.log('submodels: ', submodels.years[0].styles)
+    console.log('submodels: ', submodels.years[0].styles)
     const styles = submodels.years[0].styles;
+
+    styles.sort(sorting);
+
     console.log('styles: ', styles)
+
     return(
       <SelectField 
         value={this.state.submodelValue} 
@@ -40,7 +56,7 @@ class ModelStyles extends Component {
             <MenuItem
               key={style.id}
               value={style.id}
-              primaryText={style.trim}
+              primaryText={style.name}
               onTouchTap={() => this.fetchAction(style.id, style.trim)}
             >
             </MenuItem>
