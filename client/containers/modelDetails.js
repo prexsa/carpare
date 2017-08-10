@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import {List, ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 
@@ -19,16 +21,16 @@ const style = {
   },
   imgSize: {
     height: 200
+  },
+  icon: {
+    bottom: 5,
+    left: 95
   }
 }
 
-
-const modelDetails = ({ detail }) => {
-   console.log("details: ", detail)
+const modelDetails = ({ index, detail, onCarSelect }) => {
     const specs = detail[0];
     const equipmentArray = detail[1].equipment;
-  // console.log('equipment: ', equipmentArray)
-
     const styleId = specs.id;
     const name = specs.name;
     const make = specs.make.name;
@@ -59,8 +61,6 @@ const modelDetails = ({ detail }) => {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    // equipment 
-
     const eqpmntStorage = {};
     const specStorage = [];
 
@@ -74,8 +74,8 @@ const modelDetails = ({ detail }) => {
 
     let extDimensions = eqpmntStorage.Exterior_Dimensions;
     let specifications = eqpmntStorage.Specifications;
+
     // filter for for hwy, city, combined, curb weight, 0-60, fuel-capacity,
-    // console.log('specifications: ', specifications)
     specifications.filter((specName, i) => {
       const specNameArray = specName.name.split(' ');
       if( specNameArray[0] === 'Curb' ||
@@ -87,25 +87,13 @@ const modelDetails = ({ detail }) => {
           specNameArray[0] === 'Ege'
         )
       {
-        //specStorage.push(specName);
         if(specNameArray[0] === 'Manufacturer') { 
-          //specName.name = 'Manufacturer_0_60mph'; 
           specStorage['Manufacturer_0_60mph'] = specName.value;
         }
         specStorage[specName.name.split(' ').join("_")] = specName.value
       }
     });
-/*
-console.log('extDimensions: ', extDimensions)
-    extDimensions = extDimensions.map(ext => {
-      return (
-        <MenuItem 
-          key={ext.name} 
-          eventKey={ext.name}>{ext.name}: <span className="spec-value">{ext.value}"</span></MenuItem>
-      )
-    });
-    */
-// console.log('specStorage: ', specStorage)
+
     const curbWeight = specStorage.Curb_Weight || specStorage.Tco_Curb_Weight;
     const fuelCapacity = specStorage.Fuel_Capacity;
     const zeroToSixty = specStorage.Manufacturer_0_60mph || 'n/a';
@@ -116,6 +104,9 @@ console.log('extDimensions: ', extDimensions)
   return (
     <Paper key={styleId} style={style.paperStyle}>
       <Card>
+        <IconButton style={style.icon} onClick={() => onCarSelect(index)} >
+          <NavigationClose />
+        </IconButton>
         <CardMedia overlay={ <CardTitle title={makeName} subtitle={submodelName} style={{padding: 2}} /> } >
           <img src="" style={style.imgSize} />
         </CardMedia>
@@ -153,4 +144,4 @@ console.log('extDimensions: ', extDimensions)
 
 export default modelDetails;
 
-// https://api.edmunds.com/api/vehicle/v2/styles/401662176?view=full&fmt=json&api_key=7y4d6pwpy5h3g2gyn8sp2k5u
+// https://api.edmunds.com/api/vehicle/v2/styles/401662176?view=full&fmt=json&api_key=

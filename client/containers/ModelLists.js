@@ -34,7 +34,6 @@ let stateOfCar;
 let randomInt;
 
 class ModelLists extends Component {
-// https://facebook.github.io/react/docs/react-component.html
   constructor(props) {
     super(props);
 
@@ -100,19 +99,22 @@ class ModelLists extends Component {
   }
 
   handleSuggestionStyleId(styleId) {
-    //console.log('styleId: ', styleId);
     if(styleId.length > 0) {
       let styleIdSug;
       const styleList = styleId[0].styles;
-      //console.log('styleList: ', styleList)
       if(randomInt === undefined) {
         randomInt = Math.floor(styleList.length * Math.random());
         styleIdSug = styleList[randomInt].id;
         this.props.fetchSpecs(styleIdSug);
         this.props.fetchEquipment(styleIdSug);
-        //this.props.fetchPhoto(styleIdSug);
       }
     }
+  }
+
+  handleCarSelect(index){
+    let mergeArray = this.state.merge;
+    mergeArray.splice(index, 1);
+    this.setState({ merge: mergeArray });
   }
 
 
@@ -131,9 +133,16 @@ class ModelLists extends Component {
           </List>
         </Paper> */}
       {
-        this.state.merge.map(details => {
+        this.state.merge.map((details, i) => {
           const id = details[0].id;
-          return <ModelDetails key={id} detail={details} />
+          return (
+            <ModelDetails
+              key={id} 
+              detail={details}
+              index={i}
+              onCarSelect={(idx) => this.handleCarSelect(idx)}
+            />
+          );
         })
       
       }
