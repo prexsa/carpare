@@ -62,6 +62,9 @@ class ModelLists extends Component {
     }
 
     merge.reverse();
+
+    if(merge.length > 4) return;
+
     this.setState({ merge });
 
     if(suggestion.length <= 0) {

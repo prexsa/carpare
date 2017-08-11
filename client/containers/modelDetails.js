@@ -104,7 +104,7 @@ const modelDetails = ({ index, detail, onCarSelect }) => {
   return (
     <Paper key={styleId} style={style.paperStyle}>
       <Card>
-        <IconButton style={style.icon} onClick={() => onCarSelect(index)} >
+        <IconButton style={style.icon} onClick={() => onCarSelect(index)} tooltip="Remove" >
           <NavigationClose />
         </IconButton>
         <CardMedia overlay={ <CardTitle title={makeName} subtitle={submodelName} style={{padding: 2}} /> } >
