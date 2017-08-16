@@ -93,12 +93,11 @@ class ModelLists extends Component {
   }
 
   handleSuggestion(merge, suggest) {
-      const year = merge[0][0].year.year;
-      const condition = merge[0][0].states[0].toLowerCase();
-      const suggestedModel = Object.assign({ year, condition }, suggest[0]);
+    const year = merge[0][0].year.year;
+    const condition = merge[0][0].states[0].toLowerCase();
+    const suggestedModel = Object.assign({ year, condition }, suggest[0]);
 
-      this.props.fetchStyleId(suggestedModel);
-      
+    this.props.fetchStyleId(suggestedModel);
   }
 
   handleSuggestionStyleId(styleId) {
@@ -120,21 +119,27 @@ class ModelLists extends Component {
     this.setState({ merge: mergeArray });
   }
 
+  displaystuff() {
+    if(this.state.merge.length < 0) return;
+
+    return (
+      <Paper style={style.paperStyle}>
+        <List style={{ textAlign: 'center' }}>
+          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="MPG" titleStyle={{ fontSize: 17 }}></CardTitle></ListItem>
+          <ListItem disabled={true} style={style.emptyContainer}></ListItem>
+          <ListItem disabled={true} style={style.emptyContainer}></ListItem>
+          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="0 - 60" subtitle="(seconds)" titleStyle={{ fontSize: 17 }} subtitleStyle={{ fontSize: 14 }} style={{ bottom: 70 }} ></CardTitle></ListItem>
+          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Horsepower" titleStyle={{ fontSize: 17 }} style={{ bottom: 73 }} ></CardTitle></ListItem>
+          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Torque" titleStyle={{ fontSize: 17 }} style={{ bottom: 40 }} ></CardTitle></ListItem>
+          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
+        </List>
+      </Paper> 
+    )
+  }
 
   render () {
     return (
       <div>
-        {/* <Paper style={style.paperStyle}>
-          <List style={{ textAlign: 'center' }}>
-            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="MPG" titleStyle={{ fontSize: 17 }}></CardTitle></ListItem>
-            <ListItem disabled={true} style={style.emptyContainer}></ListItem>
-            <ListItem disabled={true} style={style.emptyContainer}></ListItem>
-            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="0 - 60" subtitle="(seconds)" titleStyle={{ fontSize: 17 }} subtitleStyle={{ fontSize: 14 }} style={{ bottom: 70 }} ></CardTitle></ListItem>
-            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Horsepower" titleStyle={{ fontSize: 17 }} style={{ bottom: 73 }} ></CardTitle></ListItem>
-            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Torque" titleStyle={{ fontSize: 17 }} style={{ bottom: 40 }} ></CardTitle></ListItem>
-            <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
-          </List>
-        </Paper> */}
       {
         this.state.merge.map((details, i) => {
           const id = details[0].id;
