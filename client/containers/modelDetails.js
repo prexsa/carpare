@@ -143,5 +143,3 @@ const modelDetails = ({ index, detail, onCarSelect }) => {
 }
 
 export default modelDetails;
-
-// https://api.edmunds.com/api/vehicle/v2/styles/401662176?view=full&fmt=json&api_key=

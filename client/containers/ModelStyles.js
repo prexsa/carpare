@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-//import { DropdownButton, MenuItem } from 'react-bootstrap';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { fetchSpecs, fetchEquipment, fetchPhoto } from '../actions/index.js';
@@ -27,7 +26,6 @@ class ModelStyles extends Component {
   }
 
   fetchAction(styleId, styleName) {
-    console.log("style.id: ", styleId)
     this.props.fetchSpecs(styleId);
     this.props.fetchEquipment(styleId);
     this.props.fetchPhoto(styleId);
@@ -37,12 +35,9 @@ class ModelStyles extends Component {
   renderSubmodel(submodels) {
     if(submodels === undefined ) return;
     
-    console.log('submodels: ', submodels.years[0].styles)
     const styles = submodels.years[0].styles;
 
     styles.sort(sorting);
-
-    console.log('styles: ', styles)
 
     return(
       <SelectField 
@@ -68,7 +63,6 @@ class ModelStyles extends Component {
 
   render() {
     const { submodel } = this.props;
-    // console.log('submodel: ', submodel[0])
     return (
       <div className="submodel-dropdown">
         {submodel === undefined ? <div>

@@ -51,14 +51,10 @@ class DropDownList extends Component {
   }
 
   onSelectYear(year) {
-    // console.log('year: ', year)
-    // console.log('state : ', this.state);
     this.props.fetchCar(this.state, year);
   }
 
   renderMakes(allMakes) {
-    // console.log("DropDownList makes: ", allMakes)
-    // const makes = allMakes;
     return (
       <div>
         <SelectField 
@@ -68,7 +64,6 @@ class DropDownList extends Component {
           style={{width: 200}}
           >
           {allMakes.map(make => {
-            //console.log('make: ', make)
             return (
               <MenuItem 
                 key={make.id}
@@ -84,7 +79,6 @@ class DropDownList extends Component {
   }
 
   renderModels(models) {
-    //console.log("models: ", models[0])
     if(models[0] === undefined) return;
     return (
       <div>
@@ -145,9 +139,8 @@ class DropDownList extends Component {
 
   render() {
     const { condition } = this.props;
-    //console.log('condition: ', condition)
     const { models, years } = this.state;
-//console.log('models: ', models, " years: ", years)
+
     return (
       <div>
         <div className="condition-container">

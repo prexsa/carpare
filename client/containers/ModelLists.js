@@ -45,7 +45,6 @@ class ModelLists extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log('nextProps: ', nextProps)
     const { specs, equipments, suggestion, styleId } = nextProps;
 
     // merge results of specs and equipment, data is received
@@ -119,43 +118,40 @@ class ModelLists extends Component {
     this.setState({ merge: mergeArray });
   }
 
-  displaystuff() {
-    if(this.state.merge.length < 0) return;
-
-    return (
-      <Paper style={style.paperStyle}>
-        <List style={{ textAlign: 'center' }}>
-          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="MPG" titleStyle={{ fontSize: 17 }}></CardTitle></ListItem>
-          <ListItem disabled={true} style={style.emptyContainer}></ListItem>
-          <ListItem disabled={true} style={style.emptyContainer}></ListItem>
-          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="0 - 60" subtitle="(seconds)" titleStyle={{ fontSize: 17 }} subtitleStyle={{ fontSize: 14 }} style={{ bottom: 70 }} ></CardTitle></ListItem>
-          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Horsepower" titleStyle={{ fontSize: 17 }} style={{ bottom: 73 }} ></CardTitle></ListItem>
-          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Torque" titleStyle={{ fontSize: 17 }} style={{ bottom: 40 }} ></CardTitle></ListItem>
-          <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
-        </List>
-      </Paper> 
-    )
-  }
-
   render () {
-    return (
-      <div>
-      {
-        this.state.merge.map((details, i) => {
-          const id = details[0].id;
-          return (
-            <ModelDetails
-              key={id} 
-              detail={details}
-              index={i}
-              onCarSelect={(idx) => this.handleCarSelect(idx)}
-            />
-          );
-        })
-      
-      }
-      </div>
-    )
+    if(this.state.merge.length === 0) {
+      return (<div></div>);
+    }else{
+      return (
+        <div>
+          <Paper style={style.paperStyle}>
+            <List style={{ textAlign: 'center' }}>
+              <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="MPG" titleStyle={{ fontSize: 17 }}></CardTitle></ListItem>
+              <ListItem disabled={true} style={style.emptyContainer}></ListItem>
+              <ListItem disabled={true} style={style.emptyContainer}></ListItem>
+              <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="0 - 60" subtitle="(seconds)" titleStyle={{ fontSize: 17 }} subtitleStyle={{ fontSize: 14 }} style={{ bottom: 70 }} ></CardTitle></ListItem>
+              <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Horsepower" titleStyle={{ fontSize: 17 }} style={{ bottom: 73 }} ></CardTitle></ListItem>
+              <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Torque" titleStyle={{ fontSize: 17 }} style={{ bottom: 40 }} ></CardTitle></ListItem>
+              <ListItem disabled={true} style={{padding: 0}} ><CardTitle title="Wheel Driven" titleStyle={{ fontSize: 17 }} style={{ padding: 0 }}></CardTitle></ListItem>
+            </List>
+          </Paper> 
+        {
+          this.state.merge.map((details, i) => {
+            const id = details[0].id;
+            return (
+              <ModelDetails
+                key={id} 
+                detail={details}
+                index={i}
+                onCarSelect={(idx) => this.handleCarSelect(idx)}
+              />
+            );
+          })
+        
+        }
+        </div>
+      )
+    }
   }
 }
 
