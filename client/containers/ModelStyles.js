@@ -39,6 +39,10 @@ class ModelStyles extends Component {
 
     styles.sort(sorting);
 
+    return (
+
+    )
+
     return(
       <SelectField 
         value={this.state.submodelValue} 

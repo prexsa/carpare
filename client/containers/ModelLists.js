@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCar, fetchSuggestions, fetchStyleId, fetchSpecs, fetchEquipment } from '../actions/index.js';
 import ModelDetails from '../containers/modelDetails.js';
-import Suggestions from '../containers/Suggestions.js';
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
